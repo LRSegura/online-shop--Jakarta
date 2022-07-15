@@ -1,7 +1,6 @@
-package com.lab.onlineshop;
+package com.lab.onlineshop.ui;
 
-import com.lab.onlineshop.entities.Customer;
-import jakarta.annotation.PostConstruct;
+import com.lab.onlineshop.model.Customer;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -14,10 +13,10 @@ import java.io.Serializable;
 
 @Named
 @SessionScoped
-public class CustomerRegister implements Serializable {
+public class CustomerRegister extends FormsEvents {
 
-//    @PersistenceContext
-//    private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private final Customer customer = new Customer();
 
@@ -27,15 +26,12 @@ public class CustomerRegister implements Serializable {
 
     @Transactional
     public void saveCustomer(){
-//        entityManager.persist(customer);
-        info();
+       safeEntity(customer);
+       showInformationMessage("Account Created");
     }
 
-    private void info() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Account Created"));
-    }
-
-    public void saveCustomer2(){
-        info();
+    @Override
+    protected EntityManager getEntityManager() {
+        return entityManager;
     }
 }

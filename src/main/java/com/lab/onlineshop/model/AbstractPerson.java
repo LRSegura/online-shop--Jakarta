@@ -1,9 +1,7 @@
-package com.lab.onlineshop.entities;
+package com.lab.onlineshop.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 

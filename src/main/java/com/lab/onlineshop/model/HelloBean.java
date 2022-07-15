@@ -1,6 +1,5 @@
-package com.lab.onlineshop.entities;
+package com.lab.onlineshop.model;
 
-import jakarta.ejb.TransactionAttribute;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;

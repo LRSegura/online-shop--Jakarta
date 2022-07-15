@@ -1,4 +1,4 @@
-package com.lab.onlineshop.entities;
+package com.lab.onlineshop.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
