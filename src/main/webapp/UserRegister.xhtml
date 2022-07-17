@@ -4,60 +4,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
     <h:head>
         <link href="css/style.css" rel="stylesheet"/>
     </h:head>
     <h:body>
-<!--        <ui:composition template = "WEB-INF/template.xhtml">-->
-<!--            <ui:define name="content">-->
-
-<!--            </ui:define>-->
-<!--        </ui:composition>-->
         <h:form>
             <p:messages id="messages" showDetail="true" closable="true">
                 <p:autoUpdate/>
             </p:messages>
-            <h:commandButton action="#{customerRegister.goToHome()}" value="Back" />
+            <h:commandButton action="#{userRegister.goToHome()}" value="Back" />
 
             <p:card styleClass="card">
                 <f:facet name="title">
-                    Create Customer Account
+                    Create User Account
                 </f:facet>
 
                 <p:panelGrid columns="4" layout="flex"
                              columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
                              contentStyleClass="ui-fluid">
                     <p:outputLabel for="firstName" value="First Name"/>
-                    <p:inputText id="firstName" value="#{customerRegister.customer.firstName}" />
+                    <p:inputText id="firstName" value="#{userRegister.user.firstName}" />
 
                     <p:outputLabel for="lastName" value="Last Name"/>
-                    <p:inputText id="lastName" value="#{customerRegister.customer.lastName}"/>
+                    <p:inputText id="lastName" value="#{userRegister.user.lastName}"/>
 
                     <p:outputLabel for="password" value="Password"/>
-                    <p:inputText id="password" value="#{customerRegister.customer.password}"/>
+                    <p:inputText id="password" value="#{userRegister.user.password}"/>
 
                     <p:outputLabel for="email" value="Email"/>
-                    <p:inputText id="email" value="#{customerRegister.customer.email}"/>
+                    <p:inputText id="email" value="#{userRegister.user.email}"/>
 
-                    <p:outputLabel for="address" value="Address"/>
-                    <p:inputText id="address" value="#{customerRegister.customer.address}"/>
-
-                    <p:outputLabel for="phoneNumber" value="Phone Number"/>
-                    <p:inputText id="phoneNumber" value="#{customerRegister.customer.phoneNumber}"/>
-
+                    <p:outputLabel for="userLevel" value="User Level"/>
+                    <p:selectOneMenu id="userLevel" value="#{userRegister.user.userLevel}">
+                        <f:selectItem itemLabel="Select One" itemValue=""/>
+                        <f:selectItems value="#{userRegister.listUserLevel}"/>
+                    </p:selectOneMenu>
+                    <p:selectBooleanCheckbox value="#{userRegister.user.isActive}" itemLabel="active"/>
                 </p:panelGrid>
 
                 <f:facet name="footer">
-                    <h:commandButton action="#{customerRegister.saveCustomer()}" value="Save" /> <br/>
+                    <h:commandButton action="#{userRegister.saveUser()}" value="Save" /> <br/>
                 </f:facet>
             </p:card>
         </h:form>
     </h:body>
-
 </f:view>
 </html>

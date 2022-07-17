@@ -1,9 +1,8 @@
-package com.lab.onlineshop.ui;
+package com.lab.onlineshop.ui.customer;
 
 import com.lab.onlineshop.model.Customer;
+import com.lab.onlineshop.ui.FormsEvents;
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -13,12 +12,12 @@ import java.io.Serializable;
 
 @Named
 @SessionScoped
-public class CustomerRegister extends FormsEvents {
+public class CustomerRegister extends FormsEvents<Customer> {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    private final Customer customer = new Customer();
+    private Customer customer = new Customer();
 
     public Customer getCustomer() {
         return customer;
@@ -26,12 +25,14 @@ public class CustomerRegister extends FormsEvents {
 
     @Transactional
     public void saveCustomer(){
-       safeEntity(customer);
-       showInformationMessage("Account Created");
+        if(saveWithValidation(customer,"Account Created")){
+            customer = new Customer();
+        }
     }
 
     @Override
     protected EntityManager getEntityManager() {
         return entityManager;
     }
+
 }

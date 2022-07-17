@@ -1,5 +1,6 @@
 package com.lab.onlineshop.model;
 
+import com.lab.onlineshop.api.Description;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,13 +13,16 @@ import lombok.Setter;
 @Entity
 public class Customer extends AbstractPerson {
 
+    @Description(value = "Customer Level")
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private CustomerLevel customerLevel= CustomerLevel.STANDARD;
 
+    @Description(value = "Address")
     @Column()
     private String address;
 
+    @Description(value = "Phone Number")
     @Column()
     private String phoneNumber;
 }

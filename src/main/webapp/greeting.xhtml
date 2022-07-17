@@ -3,7 +3,8 @@
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Jakarta EE 9 Faces</title>
@@ -14,6 +15,7 @@
         Name: <h:inputText value="#{helloBean.name}"/> <br/>
         <h:commandButton actionListener="#{helloBean.listener()}" value="Greeting"/> <br/>
         <h:outputText value="#{helloBean.greeting}"/>
+        <p:commandButton process="@this"  value="Saveu" actionListener="#{helloBean.listener()}">ss</p:commandButton>
     </h:form>
 </h:body>
 
