@@ -1,6 +1,6 @@
 package com.lab.onlineshop.model;
 
-import com.lab.onlineshop.api.Description;
+import com.lab.onlineshop.api.annotations.Description;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

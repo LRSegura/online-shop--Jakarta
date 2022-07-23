@@ -1,4 +1,4 @@
-package com.lab.onlineshop.api;
+package com.lab.onlineshop.api.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,7 @@
 package com.lab.onlineshop.ui;
 
-import com.lab.onlineshop.api.Description;
+import com.lab.onlineshop.api.annotations.Description;
+import com.lab.onlineshop.api.annotations.InjectedDate;
 import com.lab.onlineshop.model.AbstractEntity;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -13,6 +14,8 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.lab.onlineshop.api.util.UtilClass.getFieldsFromEntity;
 
 public abstract class FormsEvents<T extends AbstractEntity> implements Serializable {
 
@@ -76,9 +79,12 @@ public abstract class FormsEvents<T extends AbstractEntity> implements Serializa
                               messageError= String.format("The field '%s' from the entity '%s' should have the Description Annotation", field.getName(), entity.getClass().getName());
                              throw new RuntimeException(messageError);
                          }
-                         messageError = String.format("The field '%s' is empty", description.value());
-                         showErrorMessage(messageError);
-                         return true;
+                         InjectedDate injectedDate = field.getAnnotation(InjectedDate.class);
+                         if(injectedDate == null){
+                             messageError = String.format("The field '%s' is empty", description.value());
+                             showErrorMessage(messageError);
+                             return true;
+                         }
                      }
                  } catch (IllegalAccessException e) {
                      throw new RuntimeException("Field validation Error ");
@@ -86,16 +92,5 @@ public abstract class FormsEvents<T extends AbstractEntity> implements Serializa
              }
         }
         return false;
-    }
-
-    private Set<Field> getFieldsFromEntity(T entity){
-        Class<?> entityClass = entity.getClass();
-        Set<Field> fields = Arrays.stream(entityClass.getDeclaredFields()).collect(Collectors.toSet());
-        Class<?> entityClassParent = entityClass.getSuperclass();
-        while(!entityClassParent.equals(Object.class)){
-            fields.addAll(Arrays.stream(entityClassParent.getDeclaredFields()).collect(Collectors.toSet()));
-            entityClassParent = entityClassParent.getSuperclass();
-        }
-        return fields;
     }
 }
