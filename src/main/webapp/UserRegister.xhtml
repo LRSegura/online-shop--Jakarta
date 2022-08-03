@@ -60,11 +60,17 @@
                     </p:commandButton>
                     <p:commandButton id="delete-user-button" value="Delete User"
                                      icon="pi pi-trash"
-                                     styleClass="ui-button-danger" disabled="false"
-                                     update="@this">
+                                     styleClass="ui-button-danger" disabled="false">
                         <p:confirm header="Confirmation" message="Delete the selected User?"
                                    icon="pi pi-exclamation-triangle"/>
                     </p:commandButton>
+
+
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <h:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <h:commandButton value="yes" icon="pi pi-check" actionListener="#{userRegister.deleteSelectedUsers()}" update="dt-users" process="dt-users @this"/>
+                    </p:confirmDialog>
                 </p:toolbarGroup>
             </p:toolbar>
 
@@ -116,8 +122,8 @@
             </p:dialog>
 
 
-            <p:dataTable id="dt-users" widgetVar="dtUsers" var="user" value="#{userRegister.userList}"
-                         reflow="true" styleClass="products-table"
+            <p:dataTable id="dt-users" widgetVar="dtUsers" var="user" value="#{userRegister.users}"
+                         reflow="true" styleClass="products-table" selection="#{userRegister.usersSelected}"
                          paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" rowKey="#{user.id}">
                 <f:facet name="header">
                     <div >

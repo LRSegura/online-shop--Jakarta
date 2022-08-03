@@ -4,18 +4,23 @@ import com.lab.onlineshop.model.User;
 import com.lab.onlineshop.model.UserLevel;
 import com.lab.onlineshop.services.UserService;
 import com.lab.onlineshop.ui.FormsEvents;
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PostLoad;
 import jakarta.transaction.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class UserRegister extends FormsEvents<User> {
     @PersistenceContext
     private EntityManager entityManager;
@@ -23,7 +28,22 @@ public class UserRegister extends FormsEvents<User> {
     @Inject
     private UserService userService;
 
-    private User user = new User();
+    @Inject
+    private User user;
+
+    private List<User> usersSelected;
+
+    @PostConstruct
+    public void init(){
+    }
+
+    private boolean isRowSelected;
+
+    private int countRowSelected;
+    public boolean isRowSelected() {
+        return isRowSelected;
+    }
+
 
     public User getUser(){
         return user;
@@ -34,6 +54,13 @@ public class UserRegister extends FormsEvents<User> {
         if(saveWithValidation(user,"User Created")){
             user = new User();
         }
+    }
+
+    @Transactional
+    public void deleteSelectedUsers(){
+        usersSelected.forEach(this::deleteEntity);
+        String message = usersSelected.size() == 1 ? "User removed" : "Users removed";
+        showInformationMessage(message);
     }
 
     public void clearFields(){
@@ -55,7 +82,15 @@ public class UserRegister extends FormsEvents<User> {
         return Arrays.stream(UserLevel.values()).toList();
     }
 
-    public List<User> getUserList(){
+    public List<User> getUsers(){
         return userService.getUsers();
+    }
+
+    public List<User> getUsersSelected() {
+        return usersSelected;
+    }
+
+    public void setUsersSelected(List<User> usersSelected) {
+        this.usersSelected = usersSelected;
     }
 }

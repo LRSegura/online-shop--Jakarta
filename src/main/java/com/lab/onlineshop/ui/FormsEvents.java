@@ -3,6 +3,7 @@ package com.lab.onlineshop.ui;
 import com.lab.onlineshop.api.annotations.Description;
 import com.lab.onlineshop.api.annotations.InjectedDate;
 import com.lab.onlineshop.model.AbstractEntity;
+import com.lab.onlineshop.model.User;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.persistence.Column;
@@ -11,9 +12,8 @@ import jakarta.transaction.Transactional;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.lab.onlineshop.api.util.UtilClass.getFieldsFromEntity;
 
@@ -63,9 +63,20 @@ public abstract class FormsEvents<T extends AbstractEntity> implements Serializa
         return entity;
     }
 
+    @Transactional
+    protected void deleteEntity(AbstractEntity entity){
+        EntityManager entityManager = getEntityManager();
+        Class<? extends AbstractEntity> entityClass = entity.getClass();
+        if(!entityManager.contains(entity)){
+            entity = entityManager.find(entityClass, entity.getId());
+        }
+        entityManager.remove(entity);
+    }
+
     abstract protected EntityManager getEntityManager();
 
     public boolean isEntityFieldsEmpty(T entity) {
+        List<String> errors = new ArrayList<>();
         for (Field field : getFieldsFromEntity(entity)){
              Column column = field.getAnnotation(Column.class);
              if(column != null && !column.name().equalsIgnoreCase("id") && !column.nullable()){
@@ -82,8 +93,7 @@ public abstract class FormsEvents<T extends AbstractEntity> implements Serializa
                          InjectedDate injectedDate = field.getAnnotation(InjectedDate.class);
                          if(injectedDate == null){
                              messageError = String.format("The field '%s' is empty", description.value());
-                             showErrorMessage(messageError);
-                             return true;
+                             errors.add(messageError);
                          }
                      }
                  } catch (IllegalAccessException e) {
@@ -91,6 +101,7 @@ public abstract class FormsEvents<T extends AbstractEntity> implements Serializa
                  }
              }
         }
-        return false;
+        errors.forEach(this::showErrorMessage);
+        return !errors.isEmpty();
     }
 }
