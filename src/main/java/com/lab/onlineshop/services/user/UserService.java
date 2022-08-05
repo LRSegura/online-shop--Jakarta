@@ -1,4 +1,4 @@
-package com.lab.onlineshop.services;
+package com.lab.onlineshop.services.user;
 
 import com.lab.onlineshop.model.User;
 

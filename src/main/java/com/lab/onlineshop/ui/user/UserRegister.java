@@ -2,22 +2,18 @@ package com.lab.onlineshop.ui.user;
 
 import com.lab.onlineshop.model.User;
 import com.lab.onlineshop.model.UserLevel;
-import com.lab.onlineshop.services.UserService;
+import com.lab.onlineshop.services.user.UserService;
 import com.lab.onlineshop.ui.FormsEvents;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.PostLoad;
 import jakarta.transaction.Transactional;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
@@ -43,7 +39,6 @@ public class UserRegister extends FormsEvents<User> {
     public boolean isRowSelected() {
         return isRowSelected;
     }
-
 
     public User getUser(){
         return user;

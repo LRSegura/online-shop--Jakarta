@@ -13,49 +13,102 @@
         <link href="css/style.css" rel="stylesheet"/>
     </h:head>
     <h:body>
-<!--        <ui:composition template = "WEB-INF/template.xhtml">-->
-<!--            <ui:define name="content">-->
-
-<!--            </ui:define>-->
-<!--        </ui:composition>-->
         <h:form>
             <p:messages id="messages" showDetail="true" closable="true">
                 <p:autoUpdate/>
             </p:messages>
             <h:commandButton action="#{customerRegister.goToHome()}" value="Back" />
 
-            <p:card styleClass="card">
-                <f:facet name="title">
-                    Create Customer Account
-                </f:facet>
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="New Customer" icon="pi pi-plus"
+                                     update="manage-customer-content" oncomplete="PF('manageCustomerDialog').show()"
+                                     styleClass="ui-button-success" style="margin-right: .5rem">
+                        <p:resetInput target="manage-customer-content"/>
+                    </p:commandButton>
+                    <h:commandButton value="Delete" icon="pi pi-check" actionListener="#{customerRegister.deleteSelectedCustomer()}" update="dt-users" process="dt-users @this"/>
+                </p:toolbarGroup>
+            </p:toolbar>
 
-                <p:panelGrid columns="4" layout="flex"
-                             columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
-                             contentStyleClass="ui-fluid">
-                    <p:outputLabel for="firstName" value="First Name"/>
-                    <p:inputText id="firstName" value="#{customerRegister.customer.firstName}" />
+            <p:dialog header="Create Customer" showEffect="fade" modal="true"
+                      widgetVar="manageCustomerDialog" responsive="true">
+                <p:outputPanel id="manage-customer-content" class="ui-fluid">
+                    <p:outputPanel >
 
-                    <p:outputLabel for="lastName" value="Last Name"/>
-                    <p:inputText id="lastName" value="#{customerRegister.customer.lastName}"/>
+                        <div class="p-field">
+                            <p:outputLabel for="firstName" value="First Name"/>
+                            <p:inputText id="firstName" value="#{customerRegister.customer.firstName}" />
+                        </div>
+                        <br />
+                        <div class="p-field">
+                            <p:outputLabel for="lastName" value="Last Name"/>
+                            <p:inputText id="lastName" value="#{customerRegister.customer.lastName}"/>
+                        </div>
+                        <br />
+                        <div class="p-field">
+                            <p:outputLabel for="password" value="Password"/>
+                            <p:inputText id="password" value="#{customerRegister.customer.password}"/>
+                        </div>
+                        <br />
+                        <div class="p-field">
+                            <p:outputLabel for="email" value="Email"/>
+                            <p:inputText id="email" value="#{customerRegister.customer.email}"/>
+                        </div>
+                        <br />
+                        <div class="p-field">
+                            <p:outputLabel for="address" value="Address"/>
+                            <p:inputText id="address" value="#{customerRegister.customer.address}"/>
+                        </div>
+                        <br />
+                        <div class="p-field">
+                            <p:outputLabel for="phoneNumber" value="Phone Number"/>
+                            <p:inputText id="phoneNumber" value="#{customerRegister.customer.phoneNumber}"/>
+                        </div>
 
-                    <p:outputLabel for="password" value="Password"/>
-                    <p:inputText id="password" value="#{customerRegister.customer.password}"/>
-
-                    <p:outputLabel for="email" value="Email"/>
-                    <p:inputText id="email" value="#{customerRegister.customer.email}"/>
-
-                    <p:outputLabel for="address" value="Address"/>
-                    <p:inputText id="address" value="#{customerRegister.customer.address}"/>
-
-                    <p:outputLabel for="phoneNumber" value="Phone Number"/>
-                    <p:inputText id="phoneNumber" value="#{customerRegister.customer.phoneNumber}"/>
-
-                </p:panelGrid>
+                    </p:outputPanel>
+                </p:outputPanel>
 
                 <f:facet name="footer">
-                    <h:commandButton action="#{customerRegister.saveCustomer()}" value="Save" /> <br/>
+                    <h:commandButton action="#{customerRegister.saveCustomer()}" value="Save" />
+                    <h:commandButton value="Cancel" icon="pi pi-times" actionListener="#{customerRegister.clearFields()}" onclick="PF('manageCustomerDialog').hide()"
+                                     class="ui-button-secondary"/>
                 </f:facet>
-            </p:card>
+            </p:dialog>
+
+
+            <p:dataTable id="dt-customers" widgetVar="dtCustomers" var="customer" value="#{customerRegister.customers}"
+                         reflow="true" styleClass="products-table" selection="#{customerRegister.selectedCustomer}"
+                         paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" rowKey="#{customer.id}">
+                <f:facet name="header">
+                    <div >
+                        <span style="font-weight: bold">USERS</span>
+                        <span class="filter-container ui-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtUsers').filter()" placeholder="Search"/>
+                    </span>
+
+                    </div>
+                </f:facet>
+
+                <p:column selectionMode="multiple" exportable="false"></p:column>
+
+                <p:column headerText="First Name" >
+                    <h:outputText value="#{customer.firstName}"/>
+                </p:column>
+                <p:column headerText="Last Name" >
+                    <h:outputText value="#{customer.lastName}"/>
+                </p:column>
+                <p:column headerText="Email">
+                    <h:outputText value="#{customer.email}"/>
+                </p:column>
+                <p:column headerText="Address">
+                    <h:outputText value="#{customer.address}"/>
+                </p:column>
+                <p:column headerText="Phone Number">
+                    <h:outputText value="#{customer.phoneNumber}"/>
+                </p:column>
+
+            </p:dataTable>
 
         </h:form>
     </h:body>
