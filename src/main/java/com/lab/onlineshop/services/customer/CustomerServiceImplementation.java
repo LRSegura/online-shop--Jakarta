@@ -8,7 +8,7 @@ import jakarta.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.List;
 
-public class CustomerServiceImplementation implements CustomerService, Serializable {
+public class CustomerServiceImplementation implements CustomerService {
 
     @PersistenceContext
     private EntityManager entityManager;

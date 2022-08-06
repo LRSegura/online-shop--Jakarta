@@ -35,34 +35,34 @@
 
                         <div class="p-field">
                             <p:outputLabel for="firstName">First Name</p:outputLabel>
-                            <p:inputText id="firstName" value="#{userRegister.user.firstName}" />
+                            <p:inputText id="firstName" value="#{userRegister.entity.firstName}" />
                         </div>
                     <br />
                         <div class="p-field">
                             <p:outputLabel for="lastName">Last Name</p:outputLabel>
-                            <p:inputText id="lastName" value="#{userRegister.user.lastName}" />
+                            <p:inputText id="lastName" value="#{userRegister.entity.lastName}" />
                         </div>
                         <br />
                         <div class="p-field">
                             <p:outputLabel for="password">Password</p:outputLabel>
-                            <p:inputText id="password" value="#{userRegister.user.password}" />
+                            <p:inputText id="password" value="#{userRegister.entity.password}" />
                         </div>
                         <br />
                         <div class="p-field">
                             <p:outputLabel for="email">Email</p:outputLabel>
-                            <p:inputText id="email" value="#{userRegister.user.email}" />
+                            <p:inputText id="email" value="#{userRegister.entity.email}" />
                         </div>
                         <br />
                         <div class="p-field">
                             <p:outputLabel for="userLevel" value="User Level"/>
-                            <p:selectOneMenu id="userLevel" value="#{userRegister.user.userLevel}">
+                            <p:selectOneMenu id="userLevel" value="#{userRegister.entity.userLevel}">
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
                                 <f:selectItems value="#{userRegister.listUserLevel}"/>
                             </p:selectOneMenu>
                         </div>
                         <br />
                         <div class="p-field">
-                            <p:selectBooleanCheckbox value="#{userRegister.user.isActive}" itemLabel="active"/>
+                            <p:selectBooleanCheckbox value="#{userRegister.entity.isActive}" itemLabel="active"/>
                         </div>
 
                     </p:outputPanel>
@@ -76,8 +76,8 @@
             </p:dialog>
 
 
-            <p:dataTable id="dt-users" widgetVar="dtUsers" var="user" value="#{userRegister.users}"
-                         reflow="true" styleClass="products-table" selection="#{userRegister.usersSelected}"
+            <p:dataTable id="dt-users" widgetVar="dtUsers" var="user" value="#{userRegister.entities}"
+                         reflow="true" styleClass="products-table" selection="#{userRegister.entitiesSelected}"
                          paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" rowKey="#{user.id}">
                 <f:facet name="header">
                     <div >

@@ -2,73 +2,43 @@ package com.lab.onlineshop.ui.customer;
 
 import com.lab.onlineshop.model.Customer;
 import com.lab.onlineshop.services.customer.CustomerService;
-import com.lab.onlineshop.ui.FormsEvents;
+import com.lab.onlineshop.ui.RegisterForm;
 import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
 
 @Named
 @ViewScoped
-public class CustomerRegister extends FormsEvents<Customer> {
-
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    @Inject
-    private CustomerService customerService;
-
-    @Inject
-    private Customer customer;
-
-    private List<Customer> selectedCustomer;
-
-    public Customer getCustomer() {
-        return customer;
-    }
+public class CustomerRegister extends RegisterForm<Customer, CustomerService> {
 
     @Transactional
     public void saveCustomer(){
-        if(saveWithValidation(customer,"Account Created")){
-            customer = new Customer();
+        if(saveWithValidation(getEntity(),"Account Created")){
+            setEntity(new Customer());
         }
     }
 
     public void clearFields() {
-        customer.setFirstName(null);
-        customer.setLastName(null);
-        customer.setPassword(null);
-        customer.setEmail(null);
-        customer.setAddress(null);
-        customer.setAddress(null);
+        getEntity().setFirstName(null);
+        getEntity().setLastName(null);
+        getEntity().setPassword(null);
+        getEntity().setEmail(null);
+        getEntity().setAddress(null);
+        getEntity().setAddress(null);
     }
 
     @Transactional
     public void deleteSelectedCustomer(){
-        selectedCustomer.forEach(this::deleteEntity);
-        String message = selectedCustomer.size() == 1 ? "Customer removed" : "Customers removed";
+        getEntitiesSelected().forEach(this::deleteEntity);
+        String message = getEntitiesSelected().size() == 1 ? "Customer removed" : "Customers removed";
         showInformationMessage(message);
     }
 
-    public List<Customer> getSelectedCustomer() {
-        return selectedCustomer;
-    }
-
-    public void setSelectedCustomer(List<Customer> selectedCustomer) {
-        this.selectedCustomer = selectedCustomer;
-    }
-
-    public List<Customer> getCustomers(){
-        return customerService.getCustomers();
-    }
-
     @Override
-    protected EntityManager getEntityManager() {
-        return entityManager;
+    public List<Customer> getEntitiesFromDataBase() {
+        return getService().getCustomers();
     }
 
 }

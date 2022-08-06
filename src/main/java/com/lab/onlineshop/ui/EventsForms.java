@@ -3,7 +3,6 @@ package com.lab.onlineshop.ui;
 import com.lab.onlineshop.api.annotations.Description;
 import com.lab.onlineshop.api.annotations.InjectedDate;
 import com.lab.onlineshop.model.AbstractEntity;
-import com.lab.onlineshop.model.User;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.persistence.Column;
@@ -17,7 +16,7 @@ import java.util.List;
 
 import static com.lab.onlineshop.api.util.UtilClass.getFieldsFromEntity;
 
-public abstract class FormsEvents<T extends AbstractEntity> implements Serializable {
+public abstract class EventsForms<T extends AbstractEntity> implements Serializable {
 
     public String goToHome(){
         return "Home";
