@@ -23,7 +23,7 @@
                                    styleClass="ui-button-success" style="margin-right: .5rem">
                       <p:resetInput target="manage-user-content"/>
                   </p:commandButton>
-                  <h:commandButton value="Delete" icon="pi pi-check" actionListener="#{productTypeRegister.deleteSelectedProductsType()}" update="dt-users" process="dt-users @this"/>
+                  <h:commandButton value="Delete" icon="pi pi-check" actionListener="#{productTypeRegister.deleteSelectedProductsType()}" update="dt-productType" process="dt-productType @this"/>
               </p:toolbarGroup>
           </p:toolbar>
 
@@ -33,8 +33,8 @@
                   <p:outputPanel >
 
                       <div class="p-field">
-                          <p:outputLabel for="firstName">Description</p:outputLabel>
-                          <p:inputText id="firstName" value="#{productTypeRegister.entity.description}" />
+                          <p:outputLabel for="description">Description</p:outputLabel>
+                          <p:inputText id="description" value="#{productTypeRegister.entity.description}" />
                       </div>
                       <br />
 
@@ -69,7 +69,7 @@
 
                          <p:column selectionMode="multiple" exportable="false"></p:column>
 
-                         <p:column headerText="First Name" >
+                         <p:column headerText="Description" >
                              <h:outputText value="#{productType.description}"/>
                          </p:column>
                          <p:column headerText="Register Date">

@@ -1,6 +1,7 @@
 package com.lab.onlineshop.model;
 
 import com.lab.onlineshop.api.annotations.Description;
+import com.lab.onlineshop.api.annotations.InjectedDate;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,10 @@ import java.time.LocalDate;
 @Setter
 @Entity
 public class Product extends AbstractEntity{
+
+    @Column(nullable = false, unique = true)
+    @Description(value = "Description")
+    private String description;
 
     @Description(value = "Available Quantity")
     @Column(nullable = false)
@@ -30,8 +35,9 @@ public class Product extends AbstractEntity{
     @Column(nullable = false)
     private Boolean isAvailable;
 
+    @InjectedDate
     @Description(value = "Register Date")
     @Column(nullable = false)
-    private LocalDate registerDate = LocalDate.now();
+    private LocalDate registerDate;
 
 }
