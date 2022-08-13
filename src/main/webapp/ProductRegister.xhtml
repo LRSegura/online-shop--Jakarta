@@ -49,8 +49,8 @@
                         <br />
                         <div class="p-field">
                             <p:outputLabel for="productType" value="Product Type"/>
-                            <p:selectOneMenu id="productType" value="#{productRegister.entity.productType}">
-                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                            <p:selectOneMenu id="productType" value="#{productRegister.entity.productType}" converter="SelectItemEntityConverter">
+                                <f:selectItem itemLabel="select one" itemValue="#{null}"/>
                                 <f:selectItems value="#{productRegister.productsType}" var="productType"
                                                itemLabel="#{productType.description}" itemValue="#{productType}"/>
                             </p:selectOneMenu>
