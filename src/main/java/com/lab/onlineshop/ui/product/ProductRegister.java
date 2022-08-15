@@ -2,6 +2,7 @@ package com.lab.onlineshop.ui.product;
 
 import com.lab.onlineshop.model.Product;
 import com.lab.onlineshop.model.ProductType;
+import com.lab.onlineshop.model.UploadedAppFile;
 import com.lab.onlineshop.services.product.ProductService;
 import com.lab.onlineshop.services.product.type.ProductTypeService;
 import com.lab.onlineshop.ui.RegisterForm;
@@ -13,7 +14,6 @@ import jakarta.transaction.Transactional;
 import org.primefaces.model.file.UploadedFile;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -49,30 +49,31 @@ public class ProductRegister extends RegisterForm<Product, ProductService> {
         getEntity().setPrice(BigDecimal.ZERO);
     }
 
+    @Transactional
     private void saveImage(){
         if(uploadedFile == null){
             return;
         }
-        try(InputStream inputStream = uploadedFile.getInputStream()){
-            getEntity().setImage(inputStream.readAllBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        UploadedAppFile file = new UploadedAppFile();
+        file.setData(uploadedFile.getContent());
+        file.setName(uploadedFile.getFileName());
+        file.setMime(uploadedFile.getContentType());
+        //saveEntity(file);
     }
 
     public void downloadImage(Product product){
-        byte[] image = product.getImage();
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-        response.setHeader("Content-Disposition", "attachment;filename=image");
-        response.setContentLength(image.length);
-        try {
-            response.getOutputStream().write(image);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        facesContext.responseComplete();
-        facesContext.renderResponse();
+//        byte[] image = product.getImage();
+//        FacesContext facesContext = FacesContext.getCurrentInstance();
+//        HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+//        response.setHeader("Content-Disposition", "attachment;filename=image");
+//        response.setContentLength(image.length);
+//        try {
+//            response.getOutputStream().write(image);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        facesContext.responseComplete();
+//        facesContext.renderResponse();
     }
 
     @Override

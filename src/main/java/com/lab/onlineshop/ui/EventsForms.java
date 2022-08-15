@@ -3,6 +3,8 @@ package com.lab.onlineshop.ui;
 import com.lab.onlineshop.api.annotations.Description;
 import com.lab.onlineshop.api.annotations.InjectedDate;
 import com.lab.onlineshop.model.AbstractEntity;
+import com.lab.onlineshop.services.dao.Dao;
+import jakarta.ejb.EJB;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.persistence.Column;
@@ -17,6 +19,9 @@ import java.util.List;
 import static com.lab.onlineshop.api.util.UtilClass.getFieldsFromEntity;
 
 public abstract class EventsForms<T extends AbstractEntity> implements Serializable {
+
+    @EJB
+    private Dao dao;
 
     public String goToHome(){
         return "Home";
@@ -42,34 +47,19 @@ public abstract class EventsForms<T extends AbstractEntity> implements Serializa
         getFacesContext().addMessage(null, new FacesMessage(severity, summary, detail));
     }
 
+    @Transactional
     protected boolean saveWithValidation(T entity, final String message){
         if(isEntityFieldsEmpty(entity)){
             return false;
         }
-        safeEntity(entity);
+        dao.saveOrUpdate(entity);
         showInformationMessage(message);
         return true;
     }
 
     @Transactional
-    protected T safeEntity(T entity){
-        EntityManager entityManager = getEntityManager();
-        if(entity.getId() == null || entityManager.contains(entity)) {
-            entityManager.persist(entity);
-        } else {
-            entityManager.merge(entity);
-        }
-        return entity;
-    }
-
-    @Transactional
     protected void deleteEntity(AbstractEntity entity){
-        EntityManager entityManager = getEntityManager();
-        Class<? extends AbstractEntity> entityClass = entity.getClass();
-        if(!entityManager.contains(entity)){
-            entity = entityManager.find(entityClass, entity.getId());
-        }
-        entityManager.remove(entity);
+        dao.delete(entity);
     }
 
     abstract protected EntityManager getEntityManager();

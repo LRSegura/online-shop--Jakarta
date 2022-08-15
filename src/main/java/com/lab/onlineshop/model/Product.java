@@ -40,9 +40,8 @@ public class Product extends AbstractEntity{
     @Column(nullable = false)
     private LocalDate registerDate;
 
-    @Lob
-    @Column(columnDefinition = "BLOB")
-    private byte[] image;
-
+    @OneToOne
+    @JoinColumn(name = "id_file")
+    private UploadedAppFile file;
 
 }
