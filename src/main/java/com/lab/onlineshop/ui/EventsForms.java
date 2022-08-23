@@ -8,7 +8,6 @@ import jakarta.ejb.EJB;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.persistence.Column;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 import java.io.Serializable;
@@ -18,7 +17,7 @@ import java.util.List;
 
 import static com.lab.onlineshop.api.util.UtilClass.getFieldsFromEntity;
 
-public abstract class EventsForms<T extends AbstractEntity> implements Serializable {
+public abstract class EventsForms implements Serializable {
 
     @EJB
     private Dao dao;
@@ -48,7 +47,7 @@ public abstract class EventsForms<T extends AbstractEntity> implements Serializa
     }
 
     @Transactional
-    protected boolean saveWithValidation(T entity, final String message){
+    protected <T extends AbstractEntity> boolean saveWithValidation(T entity, final String message){
         if(isEntityFieldsEmpty(entity)){
             return false;
         }
@@ -58,13 +57,21 @@ public abstract class EventsForms<T extends AbstractEntity> implements Serializa
     }
 
     @Transactional
-    protected void deleteEntity(AbstractEntity entity){
+    protected <T extends AbstractEntity> void deleteEntity(T entity){
         dao.delete(entity);
     }
 
-    abstract protected EntityManager getEntityManager();
+    @Transactional
+    protected <T extends AbstractEntity> void saveEntity(T entity){
+        dao.save(entity);
+    }
 
-    public boolean isEntityFieldsEmpty(T entity) {
+    @Transactional
+    protected <T extends AbstractEntity> void saveOrUpdateEntity(T entity){
+        dao.saveOrUpdate(entity);
+    }
+
+    public <T extends AbstractEntity> boolean isEntityFieldsEmpty(T entity) {
         List<String> errors = new ArrayList<>();
         for (Field field : getFieldsFromEntity(entity)){
              Column column = field.getAnnotation(Column.class);

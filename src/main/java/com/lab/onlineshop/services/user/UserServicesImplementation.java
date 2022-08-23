@@ -1,20 +1,27 @@
 package com.lab.onlineshop.services.user;
 
+import com.lab.onlineshop.model.Service;
 import com.lab.onlineshop.model.User;
-import com.lab.onlineshop.services.user.UserService;
+import com.lab.onlineshop.services.dao.Dao;
+import jakarta.ejb.EJB;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class UserServicesImplementation implements UserService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @EJB
+    private Dao dao;
 
+    public Dao getDao() {
+        return dao;
+    }
+
+    public EntityManager getEntityManager(){
+        return dao.getEntityManager();
+    }
     @Override
     public List<User> getUsers() {
-        return entityManager.createQuery("FROM User ORDER BY registerDate", User.class).getResultList();
+        return getEntityManager().createQuery("FROM User ORDER BY registerDate", User.class).getResultList();
     }
 }

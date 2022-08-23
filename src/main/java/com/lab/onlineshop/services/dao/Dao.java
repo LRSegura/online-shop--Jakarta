@@ -16,5 +16,4 @@ public interface Dao {
     <T extends AbstractEntity> void delete(T entity);
     <T extends AbstractEntity> void delete(Iterable<T> entities);
     <T extends AbstractEntity> T merge(T entity);
-    <T extends AbstractEntity> void update(T entity);
 }

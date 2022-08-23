@@ -3,13 +3,15 @@ package com.lab.onlineshop.services.dao;
 import com.lab.onlineshop.model.AbstractEntity;
 import jakarta.ejb.Local;
 import jakarta.ejb.Stateful;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.hibernate.Session;
 
 import java.io.Serializable;
 import java.util.Optional;
 
-@Stateful
+@Stateless
 @Local(Dao.class)
 public class DaoImplementation implements Dao {
 
@@ -33,7 +35,7 @@ public class DaoImplementation implements Dao {
 
     @Override
     public <T extends AbstractEntity> void save(Iterable<T> entities) {
-        entities.forEach(entityManager::persist);
+        entities.forEach(this::save);
     }
 
     @Override
@@ -56,16 +58,11 @@ public class DaoImplementation implements Dao {
 
     @Override
     public <T extends AbstractEntity> void delete(Iterable<T> entities) {
-
+        entities.forEach(this::delete);
     }
 
     @Override
     public <T extends AbstractEntity> T merge(T entity) {
         return entityManager.merge(entity);
-    }
-
-    @Override
-    public <T extends AbstractEntity> void update(T entity) {
-
     }
 }
