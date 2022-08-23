@@ -1,15 +1,16 @@
 package com.lab.onlineshop.api.util;
 
+import com.lab.onlineshop.model.Product;
+import jakarta.servlet.http.HttpServletResponse;
+
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UtilClass {
-
-    private UtilClass(){
-
-    }
 
     public static  <T> Set<Field> getFieldsFromEntity(T entity){
         Class<?> entityClass = entity.getClass();
@@ -21,4 +22,20 @@ public class UtilClass {
         }
         return fields;
     }
+
+//    public void downloadImage(Product product){
+//        byte[] image = product.getImage();
+//        FacesContext facesContext = FacesContext.getCurrentInstance();
+//        HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+//        response.setHeader("Content-Disposition", "attachment;filename=image");
+//        response.setContentLength(image.length);
+////        response.setContentType();
+//        try {
+//            response.getOutputStream().write(image);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        facesContext.responseComplete();
+//        facesContext.renderResponse();
+//    }
 }

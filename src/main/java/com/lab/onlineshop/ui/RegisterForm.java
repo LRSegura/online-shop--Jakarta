@@ -1,18 +1,12 @@
 package com.lab.onlineshop.ui;
 
 import com.lab.onlineshop.model.AbstractEntity;
-import com.lab.onlineshop.model.ProductType;
 import com.lab.onlineshop.model.Service;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 
 import java.util.List;
 
-public abstract class RegisterForm<E extends AbstractEntity, S extends Service> extends EventsForms<E> {
-
-    @PersistenceContext
-    private EntityManager entityManager;
+public abstract class RegisterForm<E extends AbstractEntity, S extends Service> extends EventsForms {
 
     @Inject
     private S service;
@@ -24,11 +18,6 @@ public abstract class RegisterForm<E extends AbstractEntity, S extends Service> 
 
     public E getEntity() {
         return entity;
-    }
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return entityManager;
     }
 
     public void setEntity(E entity) {

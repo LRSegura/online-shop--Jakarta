@@ -3,10 +3,11 @@ package com.lab.onlineshop.ui;
 import com.lab.onlineshop.api.annotations.Description;
 import com.lab.onlineshop.api.annotations.InjectedDate;
 import com.lab.onlineshop.model.AbstractEntity;
+import com.lab.onlineshop.services.dao.Dao;
+import jakarta.ejb.EJB;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.persistence.Column;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 import java.io.Serializable;
@@ -16,7 +17,10 @@ import java.util.List;
 
 import static com.lab.onlineshop.api.util.UtilClass.getFieldsFromEntity;
 
-public abstract class EventsForms<T extends AbstractEntity> implements Serializable {
+public abstract class EventsForms implements Serializable {
+
+    @EJB
+    private Dao dao;
 
     public String goToHome(){
         return "Home";
@@ -42,39 +46,32 @@ public abstract class EventsForms<T extends AbstractEntity> implements Serializa
         getFacesContext().addMessage(null, new FacesMessage(severity, summary, detail));
     }
 
-    protected boolean saveWithValidation(T entity, final String message){
+    @Transactional
+    protected <T extends AbstractEntity> boolean saveWithValidation(T entity, final String message){
         if(isEntityFieldsEmpty(entity)){
             return false;
         }
-        safeEntity(entity);
+        dao.saveOrUpdate(entity);
         showInformationMessage(message);
         return true;
     }
 
     @Transactional
-    protected T safeEntity(T entity){
-        EntityManager entityManager = getEntityManager();
-        if(entity.getId() == null || entityManager.contains(entity)) {
-            entityManager.persist(entity);
-        } else {
-            entityManager.merge(entity);
-        }
-        return entity;
+    protected <T extends AbstractEntity> void deleteEntity(T entity){
+        dao.delete(entity);
     }
 
     @Transactional
-    protected void deleteEntity(AbstractEntity entity){
-        EntityManager entityManager = getEntityManager();
-        Class<? extends AbstractEntity> entityClass = entity.getClass();
-        if(!entityManager.contains(entity)){
-            entity = entityManager.find(entityClass, entity.getId());
-        }
-        entityManager.remove(entity);
+    protected <T extends AbstractEntity> void saveEntity(T entity){
+        dao.save(entity);
     }
 
-    abstract protected EntityManager getEntityManager();
+    @Transactional
+    protected <T extends AbstractEntity> void saveOrUpdateEntity(T entity){
+        dao.saveOrUpdate(entity);
+    }
 
-    public boolean isEntityFieldsEmpty(T entity) {
+    public <T extends AbstractEntity> boolean isEntityFieldsEmpty(T entity) {
         List<String> errors = new ArrayList<>();
         for (Field field : getFieldsFromEntity(entity)){
              Column column = field.getAnnotation(Column.class);
