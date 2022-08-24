@@ -1,6 +1,7 @@
 package com.lab.onlineshop.api.util;
 
 import com.lab.onlineshop.model.Product;
+import com.lab.onlineshop.model.UploadedAppFile;
 import jakarta.servlet.http.HttpServletResponse;
 
 import javax.faces.context.FacesContext;
@@ -23,19 +24,23 @@ public class UtilClass {
         return fields;
     }
 
-//    public void downloadImage(Product product){
-//        byte[] image = product.getImage();
-//        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-//        response.setHeader("Content-Disposition", "attachment;filename=image");
-//        response.setContentLength(image.length);
-////        response.setContentType();
-//        try {
-//            response.getOutputStream().write(image);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        facesContext.responseComplete();
-//        facesContext.renderResponse();
-//    }
+    public static boolean downloadFile(FacesContext facesContext, UploadedAppFile uploadedAppFile){
+        if(uploadedAppFile == null) {
+            return false;
+        }
+        byte[] image = uploadedAppFile.getData();
+        HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+        response.setHeader("Content-Disposition", "attachment;filename=" + uploadedAppFile.getName());
+        response.setContentLength(image.length);
+        response.setContentType(uploadedAppFile.getMime());
+        try {
+            response.getOutputStream().write(image);
+        } catch (IOException e) {
+            return false;
+        }
+        facesContext.responseComplete();
+        facesContext.renderResponse();
+        return true;
+    }
+
 }

@@ -17,8 +17,8 @@ public class UserRegister extends RegisterForm<User, UserService> {
 
     @Transactional
     public void saveUser(){
-        if(saveWithValidation(getEntity(),"User Created")){
-            setEntity(new User());
+        if(saveWithValidation(getFormEntity(),"User Created")){
+            setFormEntity(new User());
         }
     }
 
@@ -30,18 +30,18 @@ public class UserRegister extends RegisterForm<User, UserService> {
     }
 
     public void clearFields(){
-        getEntity().setUserLevel(null);
-        getEntity().setIsActive(false);
-        getEntity().setEmail(null);
-        getEntity().setRegisterDate(null);
-        getEntity().setFirstName(null);
-        getEntity().setLastName(null);
-        getEntity().setPassword(null);
+        getFormEntity().setUserLevel(null);
+        getFormEntity().setIsActive(false);
+        getFormEntity().setEmail(null);
+        getFormEntity().setRegisterDate(null);
+        getFormEntity().setFirstName(null);
+        getFormEntity().setLastName(null);
+        getFormEntity().setPassword(null);
     }
 
     @Override
     public List<User> getEntitiesFromDataBase() {
-        return getService().getUsers();
+        return getFormEntityService().getUsers();
     }
 
     public List<UserLevel> getListUserLevel(){

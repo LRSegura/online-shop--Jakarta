@@ -15,18 +15,18 @@ public class CustomerRegister extends RegisterForm<Customer, CustomerService> {
 
     @Transactional
     public void saveCustomer(){
-        if(saveWithValidation(getEntity(),"Account Created")){
-            setEntity(new Customer());
+        if(saveWithValidation(getFormEntity(),"Account Created")){
+            setFormEntity(new Customer());
         }
     }
 
     public void clearFields() {
-        getEntity().setFirstName(null);
-        getEntity().setLastName(null);
-        getEntity().setPassword(null);
-        getEntity().setEmail(null);
-        getEntity().setAddress(null);
-        getEntity().setAddress(null);
+        getFormEntity().setFirstName(null);
+        getFormEntity().setLastName(null);
+        getFormEntity().setPassword(null);
+        getFormEntity().setEmail(null);
+        getFormEntity().setAddress(null);
+        getFormEntity().setAddress(null);
     }
 
     @Transactional
@@ -38,7 +38,7 @@ public class CustomerRegister extends RegisterForm<Customer, CustomerService> {
 
     @Override
     public List<Customer> getEntitiesFromDataBase() {
-        return getService().getCustomers();
+        return getFormEntityService().getCustomers();
     }
 
 }

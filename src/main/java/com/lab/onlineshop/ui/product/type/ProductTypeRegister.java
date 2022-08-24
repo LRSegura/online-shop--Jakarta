@@ -1,15 +1,10 @@
 package com.lab.onlineshop.ui.product.type;
 
 import com.lab.onlineshop.model.ProductType;
-import com.lab.onlineshop.model.User;
 import com.lab.onlineshop.services.product.type.ProductTypeService;
-import com.lab.onlineshop.ui.EventsForms;
 import com.lab.onlineshop.ui.RegisterForm;
 import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -20,8 +15,8 @@ public class ProductTypeRegister extends RegisterForm<ProductType, ProductTypeSe
 
     @Transactional
     public void saveProductType(){
-        if(saveWithValidation(getEntity(),"Product type Created")){
-            setEntity(new ProductType());
+        if(saveWithValidation(getFormEntity(),"Product type Created")){
+            setFormEntity(new ProductType());
         }
     }
 
@@ -33,12 +28,12 @@ public class ProductTypeRegister extends RegisterForm<ProductType, ProductTypeSe
     }
 
     public void clearFields(){
-        getEntity().setDescription(null);
-        getEntity().setRegisterDate(null);
+        getFormEntity().setDescription(null);
+        getFormEntity().setRegisterDate(null);
     }
 
     @Override
     public List<ProductType> getEntitiesFromDataBase() {
-        return getService().getProductsType();
+        return getFormEntityService().getProductsType();
     }
 }

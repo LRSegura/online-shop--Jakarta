@@ -40,8 +40,8 @@ public class Product extends AbstractEntity{
     @Column(nullable = false)
     private LocalDate registerDate;
 
-    @OneToOne
-    @JoinColumn(name = "id_file")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn( name = "id_file")
     private UploadedAppFile file;
 
 }

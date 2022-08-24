@@ -1,5 +1,6 @@
 package com.lab.onlineshop.ui.product;
 
+import com.lab.onlineshop.api.util.UtilClass;
 import com.lab.onlineshop.model.Product;
 import com.lab.onlineshop.model.ProductType;
 import com.lab.onlineshop.model.UploadedAppFile;
@@ -9,11 +10,9 @@ import com.lab.onlineshop.ui.RegisterForm;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import org.primefaces.model.file.UploadedFile;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -28,9 +27,9 @@ public class ProductRegister extends RegisterForm<Product, ProductService> {
 
     @Transactional
     public void saveProduct(){
-        saveImage();
-        if(saveWithValidation(getEntity(),"Product type Created")){
-            setEntity(new Product());
+        getFormEntity().setFile(saveImage());
+        if(saveWithValidation(getFormEntity(),"Product type Created")){
+            setFormEntity(new Product());
         }
     }
 
@@ -42,43 +41,38 @@ public class ProductRegister extends RegisterForm<Product, ProductService> {
     }
 
     public void clearFields(){
-        getEntity().setAvailableQuantity(null);
-        getEntity().setProductType(null);
-        getEntity().setRegisterDate(null);
-        getEntity().setIsAvailable(false);
-        getEntity().setPrice(BigDecimal.ZERO);
+        getFormEntity().setAvailableQuantity(null);
+        getFormEntity().setProductType(null);
+        getFormEntity().setRegisterDate(null);
+        getFormEntity().setIsAvailable(false);
+        getFormEntity().setPrice(BigDecimal.ZERO);
     }
 
     @Transactional
-    private void saveImage(){
+    private UploadedAppFile saveImage(){
         if(uploadedFile == null){
-            return;
+            return null;
         }
         UploadedAppFile file = new UploadedAppFile();
         file.setData(uploadedFile.getContent());
         file.setName(uploadedFile.getFileName());
         file.setMime(uploadedFile.getContentType());
-        //saveEntity(file);
+        saveEntity(file);
+        return file;
     }
 
     public void downloadImage(Product product){
-//        byte[] image = product.getImage();
-//        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-//        response.setHeader("Content-Disposition", "attachment;filename=image");
-//        response.setContentLength(image.length);
-//        try {
-//            response.getOutputStream().write(image);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        facesContext.responseComplete();
-//        facesContext.renderResponse();
+        UploadedAppFile uploadedAppFile = product.getFile();
+        boolean success = UtilClass.downloadFile(FacesContext.getCurrentInstance(), uploadedAppFile);
+        if(!success){
+            showWarningMessage("There is not image to download");
+        }
+
     }
 
     @Override
     public List<Product> getEntitiesFromDataBase() {
-        return getService().getProducts();
+        return getFormEntityService().getProducts();
     }
     public List<ProductType> getProductsType(){
         return productTypeService.getProductsType();

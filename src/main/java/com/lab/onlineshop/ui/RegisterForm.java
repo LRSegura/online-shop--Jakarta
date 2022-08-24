@@ -16,11 +16,11 @@ public abstract class RegisterForm<E extends AbstractEntity, S extends Service> 
 
     private List<E> entitiesSelected;
 
-    public E getEntity() {
+    public E getFormEntity() {
         return entity;
     }
 
-    public void setEntity(E entity) {
+    public void setFormEntity(E entity) {
         this.entity = entity;
     }
 
@@ -32,7 +32,7 @@ public abstract class RegisterForm<E extends AbstractEntity, S extends Service> 
         return entitiesSelected;
     }
 
-    protected S getService() {
+    protected S getFormEntityService() {
         return service;
     }
 

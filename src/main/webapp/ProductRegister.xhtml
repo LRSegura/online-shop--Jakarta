@@ -34,22 +34,22 @@
 
                         <div class="p-field">
                             <p:outputLabel for="description">Description</p:outputLabel>
-                            <p:inputText id="description" value="#{productRegister.entity.description}" />
+                            <p:inputText id="description" value="#{productRegister.formEntity.description}" />
                         </div>
                         <br />
                         <div class="p-field">
                             <p:outputLabel for="availableQuantity">Available Quantity</p:outputLabel>
-                            <p:inputText id="availableQuantity" value="#{productRegister.entity.availableQuantity}" />
+                            <p:inputText id="availableQuantity" value="#{productRegister.formEntity.availableQuantity}" />
                         </div>
                         <br />
                         <div class="p-field">
                             <p:outputLabel for="price">Price</p:outputLabel>
-                            <p:inputText id="price" value="#{productRegister.entity.price}" />
+                            <p:inputText id="price" value="#{productRegister.formEntity.price}" />
                         </div>
                         <br />
                         <div class="p-field">
                             <p:outputLabel for="productType" value="Product Type"/>
-                            <p:selectOneMenu id="productType" value="#{productRegister.entity.productType}" converter="SelectItemEntityConverter">
+                            <p:selectOneMenu id="productType" value="#{productRegister.formEntity.productType}" converter="SelectItemEntityConverter">
                                 <f:selectItem itemLabel="select one" itemValue="#{null}"/>
                                 <f:selectItems value="#{productRegister.productsType}" var="productType"
                                                itemLabel="#{productType.description}" itemValue="#{productType}"/>
@@ -57,7 +57,7 @@
                         </div>
                         <br />
                         <div class="p-field">
-                            <p:selectBooleanCheckbox value="#{productRegister.entity.isAvailable}" itemLabel="Available"/>
+                            <p:selectBooleanCheckbox value="#{productRegister.formEntity.isAvailable}" itemLabel="Available"/>
                         </div>
                         <br />
                         <p:fileUpload value="#{productRegister.uploadedFile}" mode="simple" dragDropSupport="false" />
