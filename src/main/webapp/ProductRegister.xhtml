@@ -11,23 +11,23 @@
         <link href="css/style.css" rel="stylesheet"/>
     </h:head>
     <h:body>
-        <h:form enctype="multipart/form-data">
+        <h:form id="form1" enctype="multipart/form-data">
             <p:messages id="messages" showDetail="true" closable="true">
                 <p:autoUpdate/>
             </p:messages>
             <h:commandButton action="#{productRegister.goToHome()}" value="Back" />
-            <p:toolbar>
+            <p:toolbar id="toolbarButtons">
                 <p:toolbarGroup>
                     <p:commandButton value="New Product" icon="pi pi-plus"
                                      update="manage-product-content" oncomplete="PF('manageProduct').show()"
                                      styleClass="ui-button-success" style="margin-right: .5rem">
                         <p:resetInput target="manage-user-content"/>
                     </p:commandButton>
-                    <h:commandButton value="Delete" icon="pi pi-check" actionListener="#{productRegister.deleteSelectedProducts()}" update="dt-product" process="dt-product @this"/>
+                    <h:commandButton id="delete" value="Delete" icon="pi pi-check" actionListener="#{productRegister.deleteSelectedProducts()}" update="dt-product" process="dt-product @this"/>
                 </p:toolbarGroup>
             </p:toolbar>
 
-            <p:dialog header="Create Product" showEffect="fade" modal="true"
+            <p:dialog id="dialog" header="Create Product" showEffect="fade" modal="true"
                       widgetVar="manageProduct" responsive="true">
                 <p:outputPanel id="manage-product-content" class="ui-fluid">
                     <p:outputPanel >
@@ -86,11 +86,11 @@
                     </div>
                 </f:facet>
 
-                <!-- <p:ajax event="rowSelect" update="delete-products-button"/>
-                <p:ajax event="rowUnselect" update="delete-products-button"/>
-                <p:ajax event="rowSelectCheckbox" update="delete-products-button"/>
-                <p:ajax event="rowUnselectCheckbox" update="delete-products-button"/>
-                <p:ajax event="toggleSelect" update="delete-products-button"/> -->
+<!--                <p:ajax event="rowSelect" update="form1:toolbarButtons"/>-->
+<!--                <p:ajax event="rowUnselect" update="form1:toolbarButtons"/>-->
+<!--                <p:ajax event="rowSelectCheckbox" update="form1:toolbarButtons"/>-->
+<!--                <p:ajax event="rowUnselectCheckbox" update="form1:toolbarButtons"/>-->
+<!--                <p:ajax event="toggleSelect" update="form1:toolbarButtons"/>-->
 
                 <p:column selectionMode="multiple" exportable="false"></p:column>
 

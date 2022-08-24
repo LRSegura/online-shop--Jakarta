@@ -32,6 +32,10 @@ public abstract class RegisterForm<E extends AbstractEntity, S extends Service> 
         return entitiesSelected;
     }
 
+    public boolean selectedEntities(){
+        return entitiesSelected == null || entitiesSelected.isEmpty();
+    }
+
     protected S getFormEntityService() {
         return service;
     }
@@ -42,4 +46,13 @@ public abstract class RegisterForm<E extends AbstractEntity, S extends Service> 
     }
 
     public abstract List<E> getEntitiesFromDataBase();
+
+    protected void deleteSelectedEntities(String messageToShow){
+        if(getEntitiesSelected().isEmpty()){
+            showWarningMessage("Select at least one row to delete");
+            return;
+        }
+        getEntitiesSelected().forEach(this::deleteEntity);
+        showInformationMessage(messageToShow);
+    }
 }

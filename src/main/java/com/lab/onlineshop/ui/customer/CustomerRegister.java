@@ -31,9 +31,8 @@ public class CustomerRegister extends RegisterForm<Customer, CustomerService> {
 
     @Transactional
     public void deleteSelectedCustomer(){
-        getEntitiesSelected().forEach(this::deleteEntity);
         String message = getEntitiesSelected().size() == 1 ? "Customer removed" : "Customers removed";
-        showInformationMessage(message);
+        deleteSelectedEntities(message);
     }
 
     @Override

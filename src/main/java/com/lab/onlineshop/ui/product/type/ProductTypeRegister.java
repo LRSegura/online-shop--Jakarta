@@ -22,9 +22,8 @@ public class ProductTypeRegister extends RegisterForm<ProductType, ProductTypeSe
 
     @Transactional
     public void deleteSelectedProductsType(){
-        getEntitiesSelected().forEach(this::deleteEntity);
         String message = getEntitiesSelected().size() == 1 ? "Product type removed" : "Products type removed";
-        showInformationMessage(message);
+        deleteSelectedEntities(message);
     }
 
     public void clearFields(){

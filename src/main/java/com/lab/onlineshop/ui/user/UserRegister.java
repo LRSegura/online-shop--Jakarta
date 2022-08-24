@@ -24,9 +24,8 @@ public class UserRegister extends RegisterForm<User, UserService> {
 
     @Transactional
     public void deleteSelectedUsers(){
-        getEntitiesSelected().forEach(this::deleteEntity);
         String message = getEntitiesSelected().size() == 1 ? "User removed" : "Users removed";
-        showInformationMessage(message);
+        deleteSelectedEntities(message);
     }
 
     public void clearFields(){

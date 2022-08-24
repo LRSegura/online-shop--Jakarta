@@ -35,9 +35,8 @@ public class ProductRegister extends RegisterForm<Product, ProductService> {
 
     @Transactional
     public void deleteSelectedProducts(){
-        getEntitiesSelected().forEach(this::deleteEntity);
         String message = getEntitiesSelected().size() == 1 ? "Product removed" : "Products removed";
-        showInformationMessage(message);
+        deleteSelectedEntities(message);
     }
 
     public void clearFields(){
