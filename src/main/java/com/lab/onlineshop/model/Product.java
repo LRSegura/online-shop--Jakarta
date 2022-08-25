@@ -44,4 +44,7 @@ public class Product extends AbstractEntity{
     @JoinColumn( name = "id_file")
     private UploadedAppFile file;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private Stock stock;
 }

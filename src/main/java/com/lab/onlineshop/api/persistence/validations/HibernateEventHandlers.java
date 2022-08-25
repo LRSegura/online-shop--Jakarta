@@ -2,6 +2,9 @@ package com.lab.onlineshop.api.persistence.validations;
 
 import com.lab.onlineshop.api.annotations.InjectedDate;
 import com.lab.onlineshop.api.util.UtilClass;
+import com.lab.onlineshop.model.AbstractEntity;
+import com.lab.onlineshop.model.Product;
+import com.lab.onlineshop.model.Stock;
 import jakarta.persistence.PrePersist;
 
 import java.lang.reflect.Field;
@@ -12,6 +15,7 @@ public class HibernateEventHandlers {
     @PrePersist
     void prePersist(Object entity){
         injectDate(entity);
+        injectProductStock(entity);
     }
 
     private void injectDate(Object entity){
@@ -30,6 +34,12 @@ public class HibernateEventHandlers {
                 }
             }
         }
+    }
+
+    private void injectProductStock(Object entity){
+       if(entity instanceof Product product){
+           product.setStock(Stock.getStock(product.getAvailableQuantity()));
+       }
     }
 
 }

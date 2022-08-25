@@ -112,6 +112,9 @@
                 <p:column headerText="Register Date">
                     <h:outputText value="#{product.registerDate.toString()}"/>
                 </p:column>
+                <p:column headerText="Stock">
+                    <h:outputText value="#{product.stock.description}"/>
+                </p:column>
                 <p:column headerText="Image">
                     <h:commandButton value="Download" actionListener="#{productRegister.downloadImage(product)}"/>
                 </p:column>
