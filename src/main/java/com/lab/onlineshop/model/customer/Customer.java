@@ -1,6 +1,7 @@
-package com.lab.onlineshop.model;
+package com.lab.onlineshop.model.customer;
 
 import com.lab.onlineshop.api.annotations.Description;
+import com.lab.onlineshop.model.AbstractPerson;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

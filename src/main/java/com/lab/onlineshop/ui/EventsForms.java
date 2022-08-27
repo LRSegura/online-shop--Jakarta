@@ -2,6 +2,7 @@ package com.lab.onlineshop.ui;
 
 import com.lab.onlineshop.api.annotations.Description;
 import com.lab.onlineshop.api.annotations.InjectedDate;
+import com.lab.onlineshop.api.util.Context;
 import com.lab.onlineshop.model.AbstractEntity;
 import com.lab.onlineshop.services.dao.Dao;
 import jakarta.ejb.EJB;
@@ -22,8 +23,16 @@ public abstract class EventsForms implements Serializable {
     @EJB
     private Dao dao;
 
+    @EJB
+    private Context context;
+
     public String goToHome(){
         return "Home";
+    }
+
+    public String logOut(){
+        context.logOut();
+        return "Login";
     }
 
     protected FacesContext getFacesContext(){
@@ -99,5 +108,9 @@ public abstract class EventsForms implements Serializable {
         }
         errors.forEach(this::showErrorMessage);
         return !errors.isEmpty();
+    }
+
+    public Context getContext() {
+        return context;
     }
 }

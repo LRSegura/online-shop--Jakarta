@@ -1,7 +1,9 @@
-package com.lab.onlineshop.model;
+package com.lab.onlineshop.model.product;
 
 import com.lab.onlineshop.api.annotations.Description;
 import com.lab.onlineshop.api.annotations.InjectedDate;
+import com.lab.onlineshop.model.AbstractEntity;
+import com.lab.onlineshop.model.UploadedAppFile;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-public class Product extends AbstractEntity{
+public class Product extends AbstractEntity {
 
     @Column(nullable = false, unique = true)
     @Description(value = "Description")
@@ -44,4 +46,7 @@ public class Product extends AbstractEntity{
     @JoinColumn( name = "id_file")
     private UploadedAppFile file;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private Stock stock;
 }

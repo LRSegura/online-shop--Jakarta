@@ -1,10 +1,12 @@
 package com.lab.onlineshop.ui.user;
 
-import com.lab.onlineshop.model.User;
-import com.lab.onlineshop.model.UserLevel;
+import com.lab.onlineshop.model.user.User;
+import com.lab.onlineshop.model.user.UserLevel;
+import com.lab.onlineshop.services.customer.CustomerService;
 import com.lab.onlineshop.services.user.UserService;
 import com.lab.onlineshop.ui.RegisterForm;
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
 
@@ -13,11 +15,24 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class UserRegister extends RegisterForm<User, UserService> {
+public class UserRegister extends RegisterForm<User> {
+
+
+    @Inject
+    private UserService userService;
+
+    @Inject
+    private CustomerService customerService;
 
     @Transactional
     public void saveUser(){
-        if(saveWithValidation(getFormEntity(),"User Created")){
+        User user = getFormEntity();
+        boolean isUsernameDuplicated = user.getUserName() != null && (userService.getUser(user.getUserName()).isPresent() || customerService.getCustomer(user.getUserName()).isPresent());
+        if(isUsernameDuplicated){
+            showErrorMessage("UserName is in use");
+            return;
+        }
+        if(saveWithValidation(user,"User Created")){
             setFormEntity(new User());
         }
     }
@@ -40,7 +55,7 @@ public class UserRegister extends RegisterForm<User, UserService> {
 
     @Override
     public List<User> getEntitiesFromDataBase() {
-        return getFormEntityService().getUsers();
+        return userService.getUsers();
     }
 
     public List<UserLevel> getListUserLevel(){

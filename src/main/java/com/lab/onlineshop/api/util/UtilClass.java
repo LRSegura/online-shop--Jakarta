@@ -1,6 +1,5 @@
 package com.lab.onlineshop.api.util;
 
-import com.lab.onlineshop.model.Product;
 import com.lab.onlineshop.model.UploadedAppFile;
 import jakarta.servlet.http.HttpServletResponse;
 

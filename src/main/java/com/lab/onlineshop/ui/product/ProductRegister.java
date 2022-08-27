@@ -1,8 +1,8 @@
 package com.lab.onlineshop.ui.product;
 
 import com.lab.onlineshop.api.util.UtilClass;
-import com.lab.onlineshop.model.Product;
-import com.lab.onlineshop.model.ProductType;
+import com.lab.onlineshop.model.product.Product;
+import com.lab.onlineshop.model.product.ProductType;
 import com.lab.onlineshop.model.UploadedAppFile;
 import com.lab.onlineshop.services.product.ProductService;
 import com.lab.onlineshop.services.product.type.ProductTypeService;
@@ -18,7 +18,10 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class ProductRegister extends RegisterForm<Product, ProductService> {
+public class ProductRegister extends RegisterForm<Product> {
+
+    @Inject
+    private ProductService service;
 
     private UploadedFile uploadedFile;
 
@@ -71,7 +74,7 @@ public class ProductRegister extends RegisterForm<Product, ProductService> {
 
     @Override
     public List<Product> getEntitiesFromDataBase() {
-        return getFormEntityService().getProducts();
+        return service.getProducts();
     }
     public List<ProductType> getProductsType(){
         return productTypeService.getProductsType();

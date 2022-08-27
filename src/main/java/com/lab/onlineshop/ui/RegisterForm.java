@@ -6,10 +6,7 @@ import jakarta.inject.Inject;
 
 import java.util.List;
 
-public abstract class RegisterForm<E extends AbstractEntity, S extends Service> extends EventsForms {
-
-    @Inject
-    private S service;
+public abstract class RegisterForm<E extends AbstractEntity> extends EventsForms {
 
     @Inject
     private E entity;
@@ -35,11 +32,6 @@ public abstract class RegisterForm<E extends AbstractEntity, S extends Service> 
     public boolean selectedEntities(){
         return entitiesSelected == null || entitiesSelected.isEmpty();
     }
-
-    protected S getFormEntityService() {
-        return service;
-    }
-
 
     public List<E> getEntities(){
         return getEntitiesFromDataBase();

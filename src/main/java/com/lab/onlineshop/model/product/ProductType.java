@@ -1,7 +1,8 @@
-package com.lab.onlineshop.model;
+package com.lab.onlineshop.model.product;
 
 import com.lab.onlineshop.api.annotations.Description;
 import com.lab.onlineshop.api.annotations.InjectedDate;
+import com.lab.onlineshop.model.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-public class ProductType extends AbstractEntity{
+public class ProductType extends AbstractEntity {
 
     @Column(nullable = false, unique = true)
     @Description(value = "Description")
