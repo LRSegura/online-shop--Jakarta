@@ -15,4 +15,5 @@ public interface Context {
     void init();
 
     Map<String,Object> getRequestMapApplication();
+    public void logOut();
 }

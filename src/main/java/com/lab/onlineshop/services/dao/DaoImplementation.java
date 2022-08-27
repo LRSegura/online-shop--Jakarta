@@ -2,14 +2,10 @@ package com.lab.onlineshop.services.dao;
 
 import com.lab.onlineshop.model.AbstractEntity;
 import jakarta.ejb.Local;
-import jakarta.ejb.Stateful;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.hibernate.Session;
-
 import java.io.Serializable;
-import java.util.Optional;
 
 @Stateless
 @Local(Dao.class)

@@ -6,26 +6,23 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-public class Sale extends AbstractEntity{
+public class ItemCart extends AbstractEntity{
 
     @OneToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @OneToMany(mappedBy = "sale")
-    private Set<ItemSale> itemSaleSet;
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
     @InjectedDate
     @Column(nullable = false)
     private LocalDate registerDate;
 
-    @Column(nullable = false)
-    private BigDecimal total;
 }

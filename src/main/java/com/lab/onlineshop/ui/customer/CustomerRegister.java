@@ -1,5 +1,6 @@
 package com.lab.onlineshop.ui.customer;
 
+import com.lab.onlineshop.model.Cart;
 import com.lab.onlineshop.model.Customer;
 import com.lab.onlineshop.model.User;
 import com.lab.onlineshop.services.customer.CustomerService;
@@ -24,13 +25,14 @@ public class CustomerRegister extends RegisterForm<Customer> {
 
     @Transactional
     public void saveCustomer(){
-        Customer user = getFormEntity();
-        boolean isUsernameDuplicated = user.getUserName() != null && (userService.getUser(user.getUserName()).isPresent() || customerService.getCustomer(user.getUserName()).isPresent());
+        Customer customer = getFormEntity();
+        boolean isUsernameDuplicated = customer.getUserName() != null && (userService.getUser(customer.getUserName()).isPresent() || customerService.getCustomer(customer.getUserName()).isPresent());
         if(isUsernameDuplicated){
             showErrorMessage("UserName is in use");
             return;
         }
-        if(saveWithValidation(getFormEntity(),"Account Created")){
+        if(saveWithValidation(customer,"Account Created")){
+            createCustomerCart(customer);
             setFormEntity(new Customer());
         }
     }
@@ -55,4 +57,9 @@ public class CustomerRegister extends RegisterForm<Customer> {
         return customerService.getCustomers();
     }
 
+    private void createCustomerCart(Customer customer){
+        Cart cart = new Cart();
+        cart.setCustomer(customer);
+        saveEntity(cart);
+    }
 }

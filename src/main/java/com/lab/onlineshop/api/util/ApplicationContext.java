@@ -52,4 +52,10 @@ public class ApplicationContext implements Context {
     public Map<String,Object> getRequestMapApplication() {
         return FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
     }
+
+    @Override
+    public void logOut(){
+        this.user = null;
+        this.customer = null;
+    }
 }

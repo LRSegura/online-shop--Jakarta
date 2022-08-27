@@ -16,27 +16,35 @@
                 <p:autoUpdate/>
             </p:messages>
             <h:commandButton action="#{productRegister.goToHome()}" value="Back" />
+            <br/>
+            <h:outputText rendered="#{sales.loggedCustomer()}" value="Items in Cart: #{sales.amountItemsInCart}"/>
+            <br/>
+            <h:commandButton rendered="#{sales.loggedCustomer()}" value="View Cart" />
                 <p:dataView var="product" value="#{sales.productList}" rows="12" paginator="true">
                     <p:dataViewGridItem>
                         <h:outputText value="hello1"/>
                     </p:dataViewGridItem>
 
                     <p:dataViewListItem>
-                        <div class="product-list-item">
+                        <div>
                             <p:graphicImage value="#{product.file.data}"/>
-                            <div class="product-list-detail">
-                                <div class="product-description">#{product.description}</div>
-                                <i class="pi pi-tag product-category-icon"/><span
-                                    class="product-category">#{product.productType.description}</span>
+                            <div>
+                                <h:outputText value="Product: #{product.description}"/>
                             </div>
-                            <div class="product-list-action">
-                                <h:outputText value="#{product.price}" styleClass="product-price">
+                            <div>
+                                <h:outputText value="Type: #{product.productType.description}"/>
+                            </div>
+                            <div>
+                                <h:outputText value="#{product.price}">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                 </h:outputText>
-                                <h:commandButton type="button"
-                                                 value="Add To Cart">
-                                </h:commandButton>
                             </div>
+                            <div>
+                                <h:outputText value="#{product.stock.description}"/>
+                            </div>
+                        <div>
+                            <h:commandButton rendered="#{sales.loggedCustomer()}" value="Add To Cart" action="#{sales.addToCart(product)}"/>
+                        </div>
                         </div>
                     </p:dataViewListItem>
                 </p:dataView>
