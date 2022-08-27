@@ -46,6 +46,10 @@
                         </div>
                         <br />
                         <div class="p-field">
+                            <p:outputLabel for="username" value="Username"/>
+                            <p:inputText id="username" value="#{customerRegister.formEntity.userName}"/>
+                        </div>
+                        <div class="p-field">
                             <p:outputLabel for="password" value="Password"/>
                             <p:inputText id="password" value="#{customerRegister.formEntity.password}"/>
                         </div>
@@ -97,6 +101,9 @@
                 </p:column>
                 <p:column headerText="Last Name" >
                     <h:outputText value="#{customer.lastName}"/>
+                </p:column>
+                <p:column headerText="User Name" >
+                    <h:outputText value="#{customer.userName}"/>
                 </p:column>
                 <p:column headerText="Email">
                     <h:outputText value="#{customer.email}"/>

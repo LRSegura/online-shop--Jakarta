@@ -1,9 +1,12 @@
 package com.lab.onlineshop.ui.customer;
 
 import com.lab.onlineshop.model.Customer;
+import com.lab.onlineshop.model.User;
 import com.lab.onlineshop.services.customer.CustomerService;
+import com.lab.onlineshop.services.user.UserService;
 import com.lab.onlineshop.ui.RegisterForm;
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
 
@@ -11,10 +14,22 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class CustomerRegister extends RegisterForm<Customer, CustomerService> {
+public class CustomerRegister extends RegisterForm<Customer> {
+
+    @Inject
+    private UserService userService;
+
+    @Inject
+    private CustomerService customerService;
 
     @Transactional
     public void saveCustomer(){
+        Customer user = getFormEntity();
+        boolean isUsernameDuplicated = user.getUserName() != null && (userService.getUser(user.getUserName()).isPresent() || customerService.getCustomer(user.getUserName()).isPresent());
+        if(isUsernameDuplicated){
+            showErrorMessage("UserName is in use");
+            return;
+        }
         if(saveWithValidation(getFormEntity(),"Account Created")){
             setFormEntity(new Customer());
         }
@@ -37,7 +52,7 @@ public class CustomerRegister extends RegisterForm<Customer, CustomerService> {
 
     @Override
     public List<Customer> getEntitiesFromDataBase() {
-        return getFormEntityService().getCustomers();
+        return customerService.getCustomers();
     }
 
 }

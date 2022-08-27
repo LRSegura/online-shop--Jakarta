@@ -7,6 +7,7 @@ import jakarta.ejb.EJB;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserServicesImplementation implements UserService {
 
@@ -23,5 +24,19 @@ public class UserServicesImplementation implements UserService {
     @Override
     public List<User> getUsers() {
         return getEntityManager().createQuery("FROM User ORDER BY registerDate", User.class).getResultList();
+    }
+
+    @Override
+    public Optional<User> getUser(String userName, String password) {
+        return getEntityManager().createQuery("from User where userName = :userName and password = : password", User.class)
+                .setParameter("userName",userName).setParameter("password",password)
+                .getResultList().stream().findAny();
+    }
+
+    @Override
+    public Optional<User> getUser(String userName) {
+        return getEntityManager().createQuery("from User where userName = :userName", User.class)
+                .setParameter("userName",userName)
+                .getResultList().stream().findAny();
     }
 }

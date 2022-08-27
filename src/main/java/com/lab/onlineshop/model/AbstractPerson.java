@@ -25,6 +25,10 @@ public abstract class AbstractPerson extends AbstractEntity{
     @Column(nullable = false)
     private String lastName;
 
+    @Description(value = "User Name")
+    @Column(nullable = false)
+    private String userName;
+
     @Description(value = "Password")
     @Column(nullable = false)
     private String password;

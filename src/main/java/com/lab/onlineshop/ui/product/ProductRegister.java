@@ -18,7 +18,10 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class ProductRegister extends RegisterForm<Product, ProductService> {
+public class ProductRegister extends RegisterForm<Product> {
+
+    @Inject
+    private ProductService service;
 
     private UploadedFile uploadedFile;
 
@@ -71,7 +74,7 @@ public class ProductRegister extends RegisterForm<Product, ProductService> {
 
     @Override
     public List<Product> getEntitiesFromDataBase() {
-        return getFormEntityService().getProducts();
+        return service.getProducts();
     }
     public List<ProductType> getProductsType(){
         return productTypeService.getProductsType();
