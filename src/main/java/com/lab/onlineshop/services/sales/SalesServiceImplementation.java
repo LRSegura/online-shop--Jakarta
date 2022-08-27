@@ -4,7 +4,7 @@ import com.lab.onlineshop.services.dao.Dao;
 import jakarta.ejb.EJB;
 import jakarta.persistence.EntityManager;
 
-public class SalesServiceImplementation implements SalesService{
+public final class SalesServiceImplementation implements SalesService{
     @EJB
     private Dao dao;
 

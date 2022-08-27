@@ -1,7 +1,6 @@
 package com.lab.onlineshop.ui.product.type;
 
-import com.lab.onlineshop.model.ProductType;
-import com.lab.onlineshop.services.product.ProductService;
+import com.lab.onlineshop.model.product.ProductType;
 import com.lab.onlineshop.services.product.type.ProductTypeService;
 import com.lab.onlineshop.ui.RegisterForm;
 import jakarta.faces.view.ViewScoped;

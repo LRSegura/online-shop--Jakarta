@@ -1,5 +1,7 @@
-package com.lab.onlineshop.model;
+package com.lab.onlineshop.model.sale;
 
+import com.lab.onlineshop.model.AbstractEntity;
+import com.lab.onlineshop.model.product.Product;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -10,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class ItemSale extends AbstractEntity{
+public class ItemSale extends AbstractEntity {
 
     @OneToOne
     @JoinColumn(name = "product_id")

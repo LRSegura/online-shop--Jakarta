@@ -2,9 +2,8 @@ package com.lab.onlineshop.api.persistence.validations;
 
 import com.lab.onlineshop.api.annotations.InjectedDate;
 import com.lab.onlineshop.api.util.UtilClass;
-import com.lab.onlineshop.model.AbstractEntity;
-import com.lab.onlineshop.model.Product;
-import com.lab.onlineshop.model.Stock;
+import com.lab.onlineshop.model.product.Product;
+import com.lab.onlineshop.model.product.Stock;
 import jakarta.persistence.PrePersist;
 
 import java.lang.reflect.Field;

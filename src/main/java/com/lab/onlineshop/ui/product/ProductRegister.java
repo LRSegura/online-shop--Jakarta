@@ -1,8 +1,8 @@
 package com.lab.onlineshop.ui.product;
 
 import com.lab.onlineshop.api.util.UtilClass;
-import com.lab.onlineshop.model.Product;
-import com.lab.onlineshop.model.ProductType;
+import com.lab.onlineshop.model.product.Product;
+import com.lab.onlineshop.model.product.ProductType;
 import com.lab.onlineshop.model.UploadedAppFile;
 import com.lab.onlineshop.services.product.ProductService;
 import com.lab.onlineshop.services.product.type.ProductTypeService;

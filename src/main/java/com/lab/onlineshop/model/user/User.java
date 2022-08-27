@@ -1,6 +1,7 @@
-package com.lab.onlineshop.model;
+package com.lab.onlineshop.model.user;
 
 import com.lab.onlineshop.api.annotations.Description;
+import com.lab.onlineshop.model.AbstractPerson;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class User extends AbstractPerson{
+public class User extends AbstractPerson {
 
     @Description(value = "User Level")
     @Enumerated(EnumType.STRING)

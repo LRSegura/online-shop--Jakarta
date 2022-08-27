@@ -1,7 +1,7 @@
 package com.lab.onlineshop.api.util;
 
-import com.lab.onlineshop.model.Customer;
-import com.lab.onlineshop.model.User;
+import com.lab.onlineshop.model.customer.Customer;
+import com.lab.onlineshop.model.user.User;
 
 import java.util.Map;
 import java.util.Optional;

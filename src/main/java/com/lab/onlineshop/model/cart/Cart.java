@@ -1,5 +1,7 @@
-package com.lab.onlineshop.model;
+package com.lab.onlineshop.model.cart;
 
+import com.lab.onlineshop.model.AbstractEntity;
+import com.lab.onlineshop.model.customer.Customer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;

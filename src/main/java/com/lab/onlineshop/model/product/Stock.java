@@ -1,4 +1,4 @@
-package com.lab.onlineshop.model;
+package com.lab.onlineshop.model.product;
 
 public enum Stock {
 

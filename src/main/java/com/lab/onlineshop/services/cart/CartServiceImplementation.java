@@ -1,16 +1,16 @@
 package com.lab.onlineshop.services.cart;
 
-import com.lab.onlineshop.model.Cart;
-import com.lab.onlineshop.model.Customer;
-import com.lab.onlineshop.model.ItemCart;
-import com.lab.onlineshop.model.Product;
+import com.lab.onlineshop.model.cart.Cart;
+import com.lab.onlineshop.model.customer.Customer;
+import com.lab.onlineshop.model.cart.ItemCart;
+import com.lab.onlineshop.model.product.Product;
 import com.lab.onlineshop.services.dao.Dao;
 import jakarta.ejb.EJB;
 import jakarta.persistence.EntityManager;
 
 import java.util.Optional;
 
-public class CartServiceImplementation implements CartService{
+public final class CartServiceImplementation implements CartService{
     @EJB
     private Dao dao;
 
@@ -38,9 +38,11 @@ public class CartServiceImplementation implements CartService{
     }
 
     @Override
-    public Optional<ItemCart> getItemByProduct(Product product) {
-        return getEntityManager().createQuery("from ItemCart where product = :product", ItemCart.class)
-                .setParameter("product", product).getResultList().stream().findFirst();
+    public Optional<ItemCart> getItemByProduct(Product product, Cart cart) {
+        return getEntityManager().createQuery("from ItemCart where product = :product and cart = :cart", ItemCart.class)
+                .setParameter("product", product)
+                .setParameter("cart", cart)
+                .getResultList().stream().findFirst();
 
     }
 }

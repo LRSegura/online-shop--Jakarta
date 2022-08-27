@@ -1,10 +1,7 @@
 package com.lab.onlineshop.ui.user;
 
-import com.lab.onlineshop.model.Cart;
-import com.lab.onlineshop.model.Service;
-import com.lab.onlineshop.model.User;
-import com.lab.onlineshop.model.UserLevel;
-import com.lab.onlineshop.services.cart.CartService;
+import com.lab.onlineshop.model.user.User;
+import com.lab.onlineshop.model.user.UserLevel;
 import com.lab.onlineshop.services.customer.CustomerService;
 import com.lab.onlineshop.services.user.UserService;
 import com.lab.onlineshop.ui.RegisterForm;

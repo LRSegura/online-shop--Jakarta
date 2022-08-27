@@ -1,4 +1,4 @@
-package com.lab.onlineshop.model;
+package com.lab.onlineshop.model.customer;
 
 public enum CustomerLevel {
     PREMIUM,

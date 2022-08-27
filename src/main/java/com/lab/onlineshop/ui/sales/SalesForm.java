@@ -1,8 +1,8 @@
 package com.lab.onlineshop.ui.sales;
 
-import com.lab.onlineshop.model.Cart;
-import com.lab.onlineshop.model.ItemCart;
-import com.lab.onlineshop.model.Product;
+import com.lab.onlineshop.model.cart.Cart;
+import com.lab.onlineshop.model.cart.ItemCart;
+import com.lab.onlineshop.model.product.Product;
 import com.lab.onlineshop.services.cart.CartService;
 import com.lab.onlineshop.services.product.ProductService;
 import com.lab.onlineshop.ui.EventsForms;
@@ -40,7 +40,7 @@ public class SalesForm extends EventsForms {
     }
 
     public void addToCart(Product product){
-       boolean isProductExist = cartService.getItemByProduct(product).isPresent();
+       boolean isProductExist = cartService.getItemByProduct(product,cart).isPresent();
        if(isProductExist){
            showWarningMessage("This product is already in your cart");
            return;

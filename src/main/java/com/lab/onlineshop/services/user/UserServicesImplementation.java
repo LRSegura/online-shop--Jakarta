@@ -1,7 +1,6 @@
 package com.lab.onlineshop.services.user;
 
-import com.lab.onlineshop.model.Service;
-import com.lab.onlineshop.model.User;
+import com.lab.onlineshop.model.user.User;
 import com.lab.onlineshop.services.dao.Dao;
 import jakarta.ejb.EJB;
 import jakarta.persistence.EntityManager;
@@ -9,7 +8,7 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public class UserServicesImplementation implements UserService {
+public final class UserServicesImplementation implements UserService {
 
     @EJB
     private Dao dao;
