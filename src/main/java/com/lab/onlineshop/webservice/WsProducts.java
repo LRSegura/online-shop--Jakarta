@@ -12,7 +12,7 @@ import jakarta.ws.rs.Produces;
 import java.util.List;
 
 @Path("/")
-public class WsSales {
+public class WsProducts {
 
     @Inject
     private ProductService productService;
