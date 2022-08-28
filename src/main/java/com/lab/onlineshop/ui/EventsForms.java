@@ -113,4 +113,8 @@ public abstract class EventsForms implements Serializable {
     public Context getContext() {
         return context;
     }
+
+    public Dao getDao() {
+        return dao;
+    }
 }

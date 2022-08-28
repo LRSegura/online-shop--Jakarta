@@ -20,30 +20,29 @@
             <h:outputText rendered="#{sales.loggedCustomer()}" value="Items in Cart: #{sales.amountItemsInCart}"/>
             <br/>
             <h:commandButton rendered="#{sales.loggedCustomer()}" value="View Cart" />
-                <p:dataView var="product" value="#{sales.productList}" rows="12" paginator="true">
+                <p:dataView var="product" value="#{sales.productRecords}" rows="12" paginator="true">
                     <p:dataViewGridItem>
                         <h:outputText value="hello1"/>
                     </p:dataViewGridItem>
 
                     <p:dataViewListItem>
                         <div>
-                            <p:graphicImage value="#{product.file.data}"/>
                             <div>
-                                <h:outputText value="Product: #{product.description}"/>
+                                <h:outputText value="Product: #{product.description()}"/>
                             </div>
                             <div>
-                                <h:outputText value="Type: #{product.productType.description}"/>
+                                <h:outputText value="Type: #{product.productType()}"/>
                             </div>
                             <div>
-                                <h:outputText value="#{product.price}">
+                                <h:outputText value="#{product.price()}">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                 </h:outputText>
                             </div>
                             <div>
-                                <h:outputText value="#{product.stock.description}"/>
+                                <h:outputText value="#{product.stock()}"/>
                             </div>
                         <div>
-                            <h:commandButton rendered="#{sales.loggedCustomer()}" value="Add To Cart" action="#{sales.addToCart(product)}"/>
+                            <h:commandButton rendered="#{sales.loggedCustomer()}" value="Add To Cart" action="#{sales.addToCart(product.id())}"/>
                         </div>
                         </div>
                     </p:dataViewListItem>
