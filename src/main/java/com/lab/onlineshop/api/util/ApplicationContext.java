@@ -5,8 +5,8 @@ import com.lab.onlineshop.model.user.User;
 import jakarta.ejb.Local;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
-import jakarta.faces.context.FacesContext;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -17,15 +17,17 @@ public class ApplicationContext implements Context {
     private User user;
     private Customer customer;
 
+    private final Map<String,Object> loginMap = new HashMap<>();
+
     public void init(){
         Map<String,Object> map = getRequestMapApplication();
         Object person = map.get("AbstractPerson");
-        if(person instanceof User user){
+        if(person instanceof User userObject){
             this.customer = null;
-            this.user =user;
-        } else if (person instanceof Customer customer) {
+            this.user =userObject;
+        } else if (person instanceof Customer customerObject) {
             this.user = null;
-            this.customer = customer;
+            this.customer = customerObject;
         }
     }
 
@@ -50,7 +52,7 @@ public class ApplicationContext implements Context {
     }
 
     public Map<String,Object> getRequestMapApplication() {
-        return FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+        return loginMap;
     }
 
     @Override
