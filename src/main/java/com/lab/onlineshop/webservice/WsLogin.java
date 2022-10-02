@@ -1,10 +1,8 @@
 package com.lab.onlineshop.webservice;
 
 import com.lab.onlineshop.api.util.Context;
-import com.lab.onlineshop.model.login.JsonLoginRequest;
 import com.lab.onlineshop.model.login.JsonLoginResponse;
 import com.lab.onlineshop.model.webservices.DataResponse;
-import com.lab.onlineshop.model.webservices.JsonDataResponse;
 import com.lab.onlineshop.model.webservices.SimpleResponse;
 import com.lab.onlineshop.services.customer.CustomerService;
 import com.lab.onlineshop.services.user.UserService;
@@ -18,21 +16,24 @@ import jakarta.ws.rs.core.Response;
 
 @Path("/")
 public class WsLogin {
+
     @Inject
     private UserService userService;
+
     @Inject
     private CustomerService customerService;
+
     @EJB
     private Context applicationContext;
+
     private JsonLoginResponse jsonLoginResponse;
 
-    @POST
+    @GET
     @Path("application/login")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response login(String json) {
+    public Response login(@QueryParam("username") String userName, @QueryParam("password") String password) {
         Jsonb jsonb = JsonbBuilder.create();
-        JsonLoginRequest jsonLogin = jsonb.fromJson(json, JsonLoginRequest.class);
-        boolean success = login(jsonLogin.userName(), jsonLogin.password());
+        boolean success = isLoginSuccess(userName, password);
         if (success) {
             DataResponse response = new DataResponse(true, null, jsonLoginResponse);
             return Response.status(200).entity(jsonb.toJson(response)).build();
@@ -42,7 +43,7 @@ public class WsLogin {
         }
     }
 
-    public boolean login(String userName, String password) {
+    public boolean isLoginSuccess(String userName, String password) {
         userService.getUser(userName, password).ifPresentOrElse(user -> {
                     applicationContext.getRequestMapApplication().put("AbstractPerson", user);
                     applicationContext.init();

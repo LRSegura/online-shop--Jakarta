@@ -5,13 +5,13 @@ import com.lab.onlineshop.model.user.User;
 import jakarta.ejb.Local;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
+import jakarta.ejb.Stateful;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Singleton
-@Startup
+@Stateful
 @Local(value = Context.class)
 public class ApplicationContext implements Context {
     private User user;
