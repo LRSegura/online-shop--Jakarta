@@ -30,7 +30,7 @@ public class WsLogin {
 
     @GET
     @Path("application/login")
-    @Consumes(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
     public Response login(@QueryParam("username") String userName, @QueryParam("password") String password) {
         Jsonb jsonb = JsonbBuilder.create();
         boolean success = isLoginSuccess(userName, password);
@@ -39,7 +39,7 @@ public class WsLogin {
             return Response.status(200).entity(jsonb.toJson(response)).build();
         } else {
             SimpleResponse response = new SimpleResponse(false, "Username or password incorrect");
-            return Response.status(200).entity(jsonb.toJson(response)).build();
+            return Response.status(Response.Status.OK).entity(jsonb.toJson(response)).build();
         }
     }
 
@@ -62,7 +62,7 @@ public class WsLogin {
                     jsonLoginResponse = new JsonLoginResponse(false, true, customer.getFirstName() + customer.getLastName()));
             return true;
         } else {
-            jsonLoginResponse = new JsonLoginResponse(false, false, null);
+            jsonLoginResponse = new JsonLoginResponse(false, false);
             return false;
         }
     }
