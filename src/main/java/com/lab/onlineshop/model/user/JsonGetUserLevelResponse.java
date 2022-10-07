@@ -4,5 +4,5 @@ import com.lab.onlineshop.model.webservices.JsonDataResponse;
 
 import java.util.List;
 
-public record JsonUserLevelResponse(List<String> userLevel) implements JsonDataResponse {
+public record JsonGetUserLevelResponse(List<String> userLevel) implements JsonDataResponse {
 }

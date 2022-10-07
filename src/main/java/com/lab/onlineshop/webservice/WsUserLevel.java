@@ -1,7 +1,6 @@
 package com.lab.onlineshop.webservice;
 
-import com.lab.onlineshop.model.user.JsonUserLevelResponse;
-import com.lab.onlineshop.model.user.User;
+import com.lab.onlineshop.model.user.JsonGetUserLevelResponse;
 import com.lab.onlineshop.model.user.UserLevel;
 import com.lab.onlineshop.model.webservices.DataResponse;
 import jakarta.json.bind.Jsonb;
@@ -21,8 +20,8 @@ public class WsUserLevel {
     public Response getUserLevel(){
         Jsonb jsonb = JsonbBuilder.create();
         List<String> userLevels = Arrays.stream(UserLevel.values()).map(UserLevel::getDescription).toList();
-        JsonUserLevelResponse jsonUserLevelResponse = new JsonUserLevelResponse(userLevels);
-        String json = jsonb.toJson(new DataResponse(true,"Success",jsonUserLevelResponse));
+        JsonGetUserLevelResponse jsonGetUserLevelResponse = new JsonGetUserLevelResponse(userLevels);
+        String json = jsonb.toJson(new DataResponse(true,"Success", jsonGetUserLevelResponse));
         return Response.status(Response.Status.OK).entity(json).build();
     }
 }

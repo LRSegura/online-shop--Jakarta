@@ -1,7 +1,7 @@
 package com.lab.onlineshop.webservice;
 
-import com.lab.onlineshop.model.user.JsonUserRequest;
-import com.lab.onlineshop.model.user.JsonUserResponse;
+import com.lab.onlineshop.model.user.JsonAddUserRequest;
+import com.lab.onlineshop.model.user.JsonGetUsersResponse;
 import com.lab.onlineshop.model.user.User;
 import com.lab.onlineshop.model.user.UserLevel;
 import com.lab.onlineshop.model.webservices.SimpleResponse;
@@ -33,10 +33,10 @@ public class WsUsers {
     @Path("application/users")
     public Response getUsers(){
         Jsonb jsonb = JsonbBuilder.create();
-        List<JsonUserResponse> jsonUserResponseList = userService.getUsers().stream().map(user ->
-                new JsonUserResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getUserName(), user.getUserLevel(),
-                        user.getIsActive(),user.getRegisterDate())).toList();
-        return Response.status(Response.Status.OK).entity(jsonb.toJson(jsonUserResponseList)).build();
+        List<JsonGetUsersResponse> jsonGetUsersResponseList = userService.getUsers().stream().map(user ->
+                new JsonGetUsersResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getUserName(), user.getUserLevel().getDescription(),
+                        user.getIsActive(),user.getRegisterDate(), false)).toList();
+        return Response.status(Response.Status.OK).entity(jsonb.toJson(jsonGetUsersResponseList)).build();
     }
 
     @POST
@@ -44,10 +44,10 @@ public class WsUsers {
     @Consumes(value = MediaType.APPLICATION_JSON)
     public Response saveUser(String json){
         Jsonb jsonb = JsonbBuilder.create();
-        JsonUserRequest jsonUserRequest = jsonb.fromJson(json, JsonUserRequest.class);
+        JsonAddUserRequest jsonAddUserRequest = jsonb.fromJson(json, JsonAddUserRequest.class);
         SimpleResponse response;
         try {
-            User newUser = getUserFrom(jsonUserRequest);
+            User newUser = getUserFrom(jsonAddUserRequest);
             dao.save(newUser);
             response = new SimpleResponse(true,"");
         }catch (Exception exception){
@@ -56,15 +56,22 @@ public class WsUsers {
         return Response.status(Response.Status.OK).entity(jsonb.toJson(response)).build();
     }
 
-    private User getUserFrom(JsonUserRequest jsonUserRequest){
+    private User getUserFrom(JsonAddUserRequest jsonAddUserRequest){
         User user = new User();
-        user.setFirstName(jsonUserRequest.firstName());
-        user.setLastName(jsonUserRequest.lastName());
-        user.setUserName(jsonUserRequest.userName());
-        user.setPassword(jsonUserRequest.password());
-        user.setEmail(jsonUserRequest.email());
-        user.setUserLevel(UserLevel.getUserLevel(jsonUserRequest.userLevel()));
-        user.setIsActive(jsonUserRequest.isActive());
+        user.setFirstName(jsonAddUserRequest.firstName());
+        user.setLastName(jsonAddUserRequest.lastName());
+        user.setUserName(jsonAddUserRequest.userName());
+        user.setPassword(jsonAddUserRequest.password());
+        user.setEmail(jsonAddUserRequest.email());
+        user.setUserLevel(UserLevel.getUserLevel(jsonAddUserRequest.userLevel()));
+        user.setIsActive(jsonAddUserRequest.isActive());
         return user;
+    }
+
+    @POST
+    @Path("application/users/delete")
+    @Consumes(value = MediaType.APPLICATION_JSON)
+    public Response deleteUser(String json){
+        return null;
     }
 }
