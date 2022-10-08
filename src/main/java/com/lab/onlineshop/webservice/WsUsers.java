@@ -1,9 +1,6 @@
 package com.lab.onlineshop.webservice;
 
-import com.lab.onlineshop.model.user.JsonAddUserRequest;
-import com.lab.onlineshop.model.user.JsonGetUsersResponse;
-import com.lab.onlineshop.model.user.User;
-import com.lab.onlineshop.model.user.UserLevel;
+import com.lab.onlineshop.model.user.*;
 import com.lab.onlineshop.model.webservices.SimpleResponse;
 import com.lab.onlineshop.services.dao.Dao;
 import com.lab.onlineshop.services.user.UserService;
@@ -11,13 +8,11 @@ import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/")
@@ -33,10 +28,10 @@ public class WsUsers {
     @Path("application/users")
     public Response getUsers(){
         Jsonb jsonb = JsonbBuilder.create();
-        List<JsonGetUsersResponse> jsonGetUsersResponseList = userService.getUsers().stream().map(user ->
-                new JsonGetUsersResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getUserName(), user.getUserLevel().getDescription(),
+        List<JsonUsers> jsonUsersList = userService.getUsers().stream().map(user ->
+                new JsonUsers(user.getId(), user.getFirstName(), user.getLastName(), user.getUserName(), user.getUserLevel().getDescription(),
                         user.getIsActive(),user.getRegisterDate(), false)).toList();
-        return Response.status(Response.Status.OK).entity(jsonb.toJson(jsonGetUsersResponseList)).build();
+        return Response.status(Response.Status.OK).entity(jsonb.toJson(jsonUsersList)).build();
     }
 
     @POST
@@ -44,10 +39,10 @@ public class WsUsers {
     @Consumes(value = MediaType.APPLICATION_JSON)
     public Response saveUser(String json){
         Jsonb jsonb = JsonbBuilder.create();
-        JsonAddUserRequest jsonAddUserRequest = jsonb.fromJson(json, JsonAddUserRequest.class);
+        JsonAddUser jsonAddUser = jsonb.fromJson(json, JsonAddUser.class);
         SimpleResponse response;
         try {
-            User newUser = getUserFrom(jsonAddUserRequest);
+            User newUser = getUserFrom(jsonAddUser);
             dao.save(newUser);
             response = new SimpleResponse(true,"");
         }catch (Exception exception){
@@ -56,22 +51,28 @@ public class WsUsers {
         return Response.status(Response.Status.OK).entity(jsonb.toJson(response)).build();
     }
 
-    private User getUserFrom(JsonAddUserRequest jsonAddUserRequest){
+    private User getUserFrom(JsonAddUser jsonAddUser){
         User user = new User();
-        user.setFirstName(jsonAddUserRequest.firstName());
-        user.setLastName(jsonAddUserRequest.lastName());
-        user.setUserName(jsonAddUserRequest.userName());
-        user.setPassword(jsonAddUserRequest.password());
-        user.setEmail(jsonAddUserRequest.email());
-        user.setUserLevel(UserLevel.getUserLevel(jsonAddUserRequest.userLevel()));
-        user.setIsActive(jsonAddUserRequest.isActive());
+        user.setFirstName(jsonAddUser.firstName());
+        user.setLastName(jsonAddUser.lastName());
+        user.setUserName(jsonAddUser.userName());
+        user.setPassword(jsonAddUser.password());
+        user.setEmail(jsonAddUser.email());
+        user.setUserLevel(UserLevel.getUserLevel(jsonAddUser.userLevel()));
+        user.setIsActive(jsonAddUser.isActive());
         return user;
     }
 
-    @POST
+    @DELETE
     @Path("application/users/delete")
     @Consumes(value = MediaType.APPLICATION_JSON)
     public Response deleteUser(String json){
-        return null;
+        Jsonb jsonb = JsonbBuilder.create();
+        JsonDeleteUsers deleteUsers = jsonb.fromJson(json, JsonDeleteUsers.class);
+        List<User> users = new ArrayList<>();
+        deleteUsers.usersId().forEach(id -> users.add(dao.getEntity(User.class, id)));
+        dao.delete(users);
+        SimpleResponse response = new SimpleResponse(true,"");
+        return Response.status(Response.Status.OK).entity(jsonb.toJson(response)).build();
     }
 }
