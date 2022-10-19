@@ -63,14 +63,14 @@ public class ProductRegister extends RegisterForm<Product> {
         return file;
     }
 
-    public void downloadImage(Product product){
-        UploadedAppFile uploadedAppFile = product.getFile();
-        boolean success = UtilClass.downloadFile(FacesContext.getCurrentInstance(), uploadedAppFile);
-        if(!success){
-            showWarningMessage("There is not image to download");
-        }
-
-    }
+//    public void downloadImage(Product product){
+//        UploadedAppFile uploadedAppFile = product.getFile();
+//        boolean success = UtilClass.downloadFile(FacesContext.getCurrentInstance(), uploadedAppFile);
+//        if(!success){
+//            showWarningMessage("There is not image to download");
+//        }
+//
+//    }
 
     @Override
     public List<Product> getEntitiesFromDataBase() {

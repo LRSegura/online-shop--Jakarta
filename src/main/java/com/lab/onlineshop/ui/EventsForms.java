@@ -57,9 +57,9 @@ public abstract class EventsForms implements Serializable {
 
     @Transactional
     protected <T extends AbstractEntity> boolean saveWithValidation(T entity, final String message){
-        if(isEntityFieldsEmpty(entity)){
-            return false;
-        }
+//        if(isEntityFieldsEmpty(entity)){
+//            return false;
+//        }
         dao.saveOrUpdate(entity);
         showInformationMessage(message);
         return true;
@@ -80,35 +80,35 @@ public abstract class EventsForms implements Serializable {
         dao.saveOrUpdate(entity);
     }
 
-    public <T extends AbstractEntity> boolean isEntityFieldsEmpty(T entity) {
-        List<String> errors = new ArrayList<>();
-        for (Field field : getFieldsFromEntity(entity)){
-             Column column = field.getAnnotation(Column.class);
-             if(column != null && !column.name().equalsIgnoreCase("id") && !column.nullable()){
-                 field.setAccessible(true);
-                 try {
-                     Object value = field.get(entity);
-                     if(value == null || (value instanceof String stringValue && stringValue.isEmpty())) {
-                         Description description = field.getAnnotation(Description.class);
-                         String messageError;
-                         if(description == null){
-                              messageError= String.format("The field '%s' from the entity '%s' should have the Description Annotation", field.getName(), entity.getClass().getName());
-                             throw new RuntimeException(messageError);
-                         }
-                         InjectedDate injectedDate = field.getAnnotation(InjectedDate.class);
-                         if(injectedDate == null){
-                             messageError = String.format("The field '%s' is empty", description.value());
-                             errors.add(messageError);
-                         }
-                     }
-                 } catch (IllegalAccessException e) {
-                     throw new RuntimeException("Field validation Error ");
-                 }
-             }
-        }
-        errors.forEach(this::showErrorMessage);
-        return !errors.isEmpty();
-    }
+//    public <T extends AbstractEntity> boolean isEntityFieldsEmpty(T entity) {
+//        List<String> errors = new ArrayList<>();
+//        for (Field field : getFieldsFromEntity(entity)){
+//             Column column = field.getAnnotation(Column.class);
+//             if(column != null && !column.name().equalsIgnoreCase("id") && !column.nullable()){
+//                 field.setAccessible(true);
+//                 try {
+//                     Object value = field.get(entity);
+//                     if(value == null || (value instanceof String stringValue && stringValue.isEmpty())) {
+//                         Description description = field.getAnnotation(Description.class);
+//                         String messageError;
+//                         if(description == null){
+//                              messageError= String.format("The field '%s' from the entity '%s' should have the Description Annotation", field.getName(), entity.getClass().getName());
+//                             throw new RuntimeException(messageError);
+//                         }
+//                         InjectedDate injectedDate = field.getAnnotation(InjectedDate.class);
+//                         if(injectedDate == null){
+//                             messageError = String.format("The field '%s' is empty", description.value());
+//                             errors.add(messageError);
+//                         }
+//                     }
+//                 } catch (IllegalAccessException e) {
+//                     throw new RuntimeException("Field validation Error ");
+//                 }
+//             }
+//        }
+//        errors.forEach(this::showErrorMessage);
+//        return !errors.isEmpty();
+//    }
 
     public Context getContext() {
         return context;
