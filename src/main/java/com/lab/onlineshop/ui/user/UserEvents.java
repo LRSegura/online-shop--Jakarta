@@ -8,6 +8,7 @@ import com.lab.onlineshop.services.user.UserService;
 import com.lab.onlineshop.ui.AbstractEntityEvents;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+
 @Stateless
 public class UserEvents extends AbstractEntityEvents<User> {
 

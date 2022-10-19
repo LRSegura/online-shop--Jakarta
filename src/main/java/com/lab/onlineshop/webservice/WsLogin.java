@@ -30,7 +30,6 @@ public class WsLogin {
 
     @GET
     @Path("application/login")
-//    @Consumes(MediaType.APPLICATION_JSON)
     public Response login(@QueryParam("username") String userName, @QueryParam("password") String password) {
         Jsonb jsonb = JsonbBuilder.create();
         boolean success = isLoginSuccess(userName, password);
