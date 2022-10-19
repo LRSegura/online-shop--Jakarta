@@ -1,4 +1,4 @@
-package com.lab.onlineshop.webservice;
+package com.lab.onlineshop.webservice.cart;
 
 import com.lab.onlineshop.model.customer.Customer;
 import com.lab.onlineshop.services.cart.CartService;

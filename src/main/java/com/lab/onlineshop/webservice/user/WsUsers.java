@@ -1,9 +1,10 @@
-package com.lab.onlineshop.webservice;
+package com.lab.onlineshop.webservice.user;
 
 import com.lab.onlineshop.api.exceptions.EntityFieldValueException;
 import com.lab.onlineshop.model.user.*;
 import com.lab.onlineshop.model.webservices.SimpleResponse;
 import com.lab.onlineshop.ui.user.UserEvents;
+import com.lab.onlineshop.webservice.util.ResponseStatus;
 import jakarta.ejb.EJB;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;

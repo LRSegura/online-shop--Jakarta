@@ -1,4 +1,4 @@
-package com.lab.onlineshop.webservice;
+package com.lab.onlineshop.webservice.login;
 
 import com.lab.onlineshop.api.util.Context;
 import com.lab.onlineshop.model.login.JsonLoginResponse;

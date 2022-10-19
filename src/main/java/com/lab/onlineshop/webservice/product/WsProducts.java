@@ -1,4 +1,4 @@
-package com.lab.onlineshop.webservice;
+package com.lab.onlineshop.webservice.product;
 
 import com.lab.onlineshop.model.product.ProductRecord;
 import com.lab.onlineshop.services.product.ProductService;

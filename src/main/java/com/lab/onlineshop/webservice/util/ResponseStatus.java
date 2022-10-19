@@ -1,4 +1,4 @@
-package com.lab.onlineshop.webservice;
+package com.lab.onlineshop.webservice.util;
 
 public enum ResponseStatus {
     SUCCESS(true),
