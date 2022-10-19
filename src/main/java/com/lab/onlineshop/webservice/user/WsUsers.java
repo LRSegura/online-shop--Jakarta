@@ -1,11 +1,11 @@
-package com.lab.onlineshop.webservice;
+package com.lab.onlineshop.webservice.user;
 
+import com.lab.onlineshop.api.exceptions.EntityFieldValueException;
 import com.lab.onlineshop.model.user.*;
 import com.lab.onlineshop.model.webservices.SimpleResponse;
-import com.lab.onlineshop.services.dao.Dao;
-import com.lab.onlineshop.services.user.UserService;
+import com.lab.onlineshop.ui.user.UserEvents;
+import com.lab.onlineshop.webservice.util.ResponseStatus;
 import jakarta.ejb.EJB;
-import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.*;
@@ -18,17 +18,14 @@ import java.util.List;
 @Path("/")
 public class WsUsers {
 
-    @Inject
-    private UserService userService;
-
     @EJB
-    private Dao dao;
+    private UserEvents userEvents;
 
     @GET
     @Path("application/users")
     public Response getUsers(){
         Jsonb jsonb = JsonbBuilder.create();
-        List<JsonUsers> jsonUsersList = userService.getUsers().stream().map(user ->
+        List<JsonUsers> jsonUsersList = userEvents.getUserService().getUsers().stream().map(user ->
                 new JsonUsers(user.getId(), user.getFirstName(), user.getLastName(), user.getUserName(), user.getEmail(),
                         user.getPassword(), user.getUserLevel().getDescription(),
                         user.getIsActive(),user.getRegisterDate(), false)).toList();
@@ -44,10 +41,12 @@ public class WsUsers {
         SimpleResponse response;
         try {
             User newUser = getUserFromJson(jsonAddUser);
-            dao.save(newUser);
-            response = new SimpleResponse(true,"");
-        }catch (Exception exception){
-            response = new SimpleResponse(false,"Error saving user: " + exception.getMessage());
+            userEvents.saveWithValidation(newUser);
+            response = new SimpleResponse(ResponseStatus.SUCCESS.getStatus(),"");
+        } catch (EntityFieldValueException exception) {
+            response = new SimpleResponse(ResponseStatus.FAILED.getStatus(),exception.getMessage(),exception.getSpecificErrorList());
+        } catch (Exception exception){
+           response = new SimpleResponse(ResponseStatus.FAILED.getStatus(),"Error saving user: " + exception.getMessage());
         }
         return Response.status(Response.Status.OK).entity(jsonb.toJson(response)).build();
     }
@@ -65,8 +64,8 @@ public class WsUsers {
         Jsonb jsonb = JsonbBuilder.create();
         JsonDeleteUsers deleteUsers = jsonb.fromJson(json, JsonDeleteUsers.class);
         List<User> users = new ArrayList<>();
-        deleteUsers.usersId().forEach(id -> users.add(dao.getEntity(User.class, id)));
-        dao.delete(users);
+        deleteUsers.usersId().forEach(id -> users.add(userEvents.getEntity(User.class, id)));
+        userEvents.delete(users);
         SimpleResponse response = new SimpleResponse(true,"");
         return Response.status(Response.Status.OK).entity(jsonb.toJson(response)).build();
     }
@@ -80,16 +79,19 @@ public class WsUsers {
         SimpleResponse response;
         try {
             User updateUser = getUserFromJson(jsonAddUser);
-            dao.saveOrUpdate(updateUser);
-            response = new SimpleResponse(true,"");
-        }catch (Exception exception){
-            response = new SimpleResponse(false,"Error updating user: " + exception.getMessage());
+            userEvents.updateWithValidation(updateUser);
+            response = new SimpleResponse(ResponseStatus.SUCCESS.getStatus(),"");
+        } catch (EntityFieldValueException exception) {
+            response = new SimpleResponse(ResponseStatus.FAILED.getStatus(), exception.getMessage(), exception.getSpecificErrorList());
+        }
+        catch (Exception exception){
+            response = new SimpleResponse(ResponseStatus.FAILED.getStatus(),"Error updating user: " + exception.getMessage());
         }
         return Response.status(Response.Status.OK).entity(jsonb.toJson(response)).build();
     }
 
     private User getUserFromJson(JsonUpdateUser jsonUpdateUser){
-        User user = dao.getEntity(User.class, jsonUpdateUser.id());
+        User user = userEvents.getEntity(User.class, jsonUpdateUser.id());
         return getUser(user, jsonUpdateUser.firstName(), jsonUpdateUser.lastName(), jsonUpdateUser.userName(), jsonUpdateUser.password(),
                 jsonUpdateUser.email(), jsonUpdateUser.userLevel(), jsonUpdateUser.isActive());
     }

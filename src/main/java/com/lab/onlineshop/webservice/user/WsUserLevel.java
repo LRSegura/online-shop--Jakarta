@@ -1,4 +1,4 @@
-package com.lab.onlineshop.webservice;
+package com.lab.onlineshop.webservice.user;
 
 import com.lab.onlineshop.model.user.JsonUserLevel;
 import com.lab.onlineshop.model.user.UserLevel;

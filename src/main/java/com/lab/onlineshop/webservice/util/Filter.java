@@ -1,4 +1,4 @@
-package com.lab.onlineshop.webservice;
+package com.lab.onlineshop.webservice.util;
 
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerResponseContext;
