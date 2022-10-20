@@ -22,4 +22,8 @@ public class CustomerEvents extends AbstractEntityEvents<Customer> {
             throw new ApplicationBusinessException(ErrorMessage.USERNAME_IN_USE);
         });
     }
+
+    public CustomerService getCustomerService() {
+        return customerService;
+    }
 }
