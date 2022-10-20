@@ -1,4 +1,4 @@
-package com.lab.onlineshop.model.product;
+package com.lab.onlineshop.model.product.type;
 
 import com.lab.onlineshop.api.annotations.Description;
 import com.lab.onlineshop.api.annotations.InjectedDate;

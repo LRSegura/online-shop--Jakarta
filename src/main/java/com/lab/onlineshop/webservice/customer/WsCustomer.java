@@ -59,20 +59,20 @@ public class WsCustomer {
     }
 
     @DELETE
-    @Path("application/customer/delete")
+    @Path("application/customers/delete")
     @Consumes(value = MediaType.APPLICATION_JSON)
     public Response deleteCustomer(String json){
         Jsonb jsonb = JsonbBuilder.create();
         JsonDeleteCustomer jsonDeleteCustomer = jsonb.fromJson(json, JsonDeleteCustomer.class);
         List<Customer> customers = new ArrayList<>();
-        jsonDeleteCustomer.usersId().forEach(id -> customers.add(customerEvents.getEntity(Customer.class, id)));
+        jsonDeleteCustomer.customersId().forEach(id -> customers.add(customerEvents.getEntity(Customer.class, id)));
         customerEvents.delete(customers);
         SimpleResponse response = new SimpleResponse(true,"");
         return Response.status(Response.Status.OK).entity(jsonb.toJson(response)).build();
     }
 
     @PUT
-    @Path("application/customer/update")
+    @Path("application/customers/update")
     @Consumes(value = MediaType.APPLICATION_JSON)
     public Response updateCustomer(String json){
         Jsonb jsonb = JsonbBuilder.create();

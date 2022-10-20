@@ -58,4 +58,7 @@ public abstract class AbstractEntityEvents<T extends AbstractEntity> implements 
         dao.saveOrUpdate(entity);
     }
 
+    public Dao getDao() {
+        return dao;
+    }
 }

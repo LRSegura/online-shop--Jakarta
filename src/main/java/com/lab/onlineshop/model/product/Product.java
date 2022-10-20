@@ -4,6 +4,7 @@ import com.lab.onlineshop.api.annotations.Description;
 import com.lab.onlineshop.api.annotations.InjectedDate;
 import com.lab.onlineshop.model.AbstractEntity;
 import com.lab.onlineshop.model.UploadedAppFile;
+import com.lab.onlineshop.model.product.type.ProductType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

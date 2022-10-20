@@ -1,6 +1,6 @@
 package com.lab.onlineshop.services.product.type;
 
-import com.lab.onlineshop.model.product.ProductType;
+import com.lab.onlineshop.model.product.type.ProductType;
 import com.lab.onlineshop.services.dao.Dao;
 import jakarta.ejb.EJB;
 import jakarta.persistence.EntityManager;

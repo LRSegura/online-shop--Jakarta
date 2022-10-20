@@ -1,5 +1,7 @@
 package com.lab.onlineshop.model.product;
 
+import com.lab.onlineshop.model.customer.CustomerLevel;
+
 public enum Stock {
 
     IN_STOCK("In Stock"),
@@ -24,6 +26,15 @@ public enum Stock {
             return LOW_STOCK;
         }
         return IN_STOCK;
+    }
+
+    public static Stock getStock(String description) {
+        for (var value: values()) {
+            if(value.description.equalsIgnoreCase(description)){
+                return value;
+            }
+        }
+        throw new IllegalArgumentException("Wrong value to get Stock enum");
     }
 
 }

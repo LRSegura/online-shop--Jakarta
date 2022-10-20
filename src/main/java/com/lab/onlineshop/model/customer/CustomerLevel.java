@@ -21,6 +21,6 @@ public enum CustomerLevel {
                 return value;
             }
         }
-        throw new IllegalArgumentException("Wrong value to get User Level enum");
+        throw new IllegalArgumentException("Wrong value to get Customer Level enum");
     }
 }
