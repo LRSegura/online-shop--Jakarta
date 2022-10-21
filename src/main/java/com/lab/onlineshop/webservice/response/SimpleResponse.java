@@ -1,4 +1,4 @@
-package com.lab.onlineshop.model.webservices;
+package com.lab.onlineshop.webservice.response;
 
 import java.util.Collections;
 import java.util.List;

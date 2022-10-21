@@ -1,4 +1,4 @@
-package com.lab.onlineshop.model.product.type;
+package com.lab.onlineshop.webservice.product.type.json.model;
 
 import java.util.List;
 

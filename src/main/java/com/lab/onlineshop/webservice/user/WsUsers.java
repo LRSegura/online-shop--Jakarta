@@ -2,8 +2,12 @@ package com.lab.onlineshop.webservice.user;
 
 import com.lab.onlineshop.api.exceptions.EntityFieldValueException;
 import com.lab.onlineshop.model.user.*;
-import com.lab.onlineshop.model.webservices.SimpleResponse;
+import com.lab.onlineshop.webservice.response.SimpleResponse;
 import com.lab.onlineshop.ui.user.UserEvents;
+import com.lab.onlineshop.webservice.user.json.model.JsonAddUser;
+import com.lab.onlineshop.webservice.user.json.model.JsonDeleteUsers;
+import com.lab.onlineshop.webservice.user.json.model.JsonUpdateUser;
+import com.lab.onlineshop.webservice.user.json.model.JsonUsers;
 import com.lab.onlineshop.webservice.util.ResponseStatus;
 import jakarta.ejb.EJB;
 import jakarta.json.bind.Jsonb;

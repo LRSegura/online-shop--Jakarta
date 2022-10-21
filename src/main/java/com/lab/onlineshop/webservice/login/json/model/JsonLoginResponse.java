@@ -1,6 +1,6 @@
-package com.lab.onlineshop.model.login;
+package com.lab.onlineshop.webservice.login.json.model;
 
-import com.lab.onlineshop.model.webservices.JsonDataResponse;
+import com.lab.onlineshop.webservice.response.JsonDataResponse;
 
 public record JsonLoginResponse(boolean isUser, boolean isCustomer, String name) implements JsonDataResponse {
     public JsonLoginResponse(boolean isUser, boolean isCustomer){

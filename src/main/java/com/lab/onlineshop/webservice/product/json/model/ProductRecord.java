@@ -1,4 +1,4 @@
-package com.lab.onlineshop.model.product;
+package com.lab.onlineshop.webservice.product.json.model;
 
 import java.math.BigDecimal;
 

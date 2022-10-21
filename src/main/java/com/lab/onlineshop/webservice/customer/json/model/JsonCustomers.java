@@ -1,6 +1,6 @@
-package com.lab.onlineshop.model.customer;
+package com.lab.onlineshop.webservice.customer.json.model;
 
-import com.lab.onlineshop.model.webservices.JsonDataResponse;
+import com.lab.onlineshop.webservice.response.JsonDataResponse;
 
 import java.time.LocalDate;
 

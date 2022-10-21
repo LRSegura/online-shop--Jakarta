@@ -1,9 +1,9 @@
 package com.lab.onlineshop.webservice.login;
 
 import com.lab.onlineshop.api.util.Context;
-import com.lab.onlineshop.model.login.JsonLoginResponse;
-import com.lab.onlineshop.model.webservices.DataResponse;
-import com.lab.onlineshop.model.webservices.SimpleResponse;
+import com.lab.onlineshop.webservice.login.json.model.JsonLoginResponse;
+import com.lab.onlineshop.webservice.response.DataResponse;
+import com.lab.onlineshop.webservice.response.SimpleResponse;
 import com.lab.onlineshop.services.customer.CustomerService;
 import com.lab.onlineshop.services.user.UserService;
 import jakarta.ejb.EJB;
@@ -11,7 +11,6 @@ import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/")

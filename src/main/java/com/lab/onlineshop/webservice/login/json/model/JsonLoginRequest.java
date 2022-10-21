@@ -1,4 +1,4 @@
-package com.lab.onlineshop.model.login;
+package com.lab.onlineshop.webservice.login.json.model;
 
 import java.util.Objects;
 

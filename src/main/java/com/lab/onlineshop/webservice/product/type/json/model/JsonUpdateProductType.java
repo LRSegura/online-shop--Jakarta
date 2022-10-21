@@ -1,4 +1,4 @@
-package com.lab.onlineshop.model.product.type;
+package com.lab.onlineshop.webservice.product.type.json.model;
 
 public record JsonUpdateProductType(Long id, String description) {
 }

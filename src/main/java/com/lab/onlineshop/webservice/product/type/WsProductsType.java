@@ -2,9 +2,12 @@ package com.lab.onlineshop.webservice.product.type;
 
 import com.lab.onlineshop.api.exceptions.EntityFieldValueException;
 import com.lab.onlineshop.model.product.type.*;
-import com.lab.onlineshop.model.user.*;
-import com.lab.onlineshop.model.webservices.SimpleResponse;
+import com.lab.onlineshop.webservice.response.SimpleResponse;
 import com.lab.onlineshop.ui.product.type.ProductTypeEvents;
+import com.lab.onlineshop.webservice.product.type.json.model.JsonAddProductType;
+import com.lab.onlineshop.webservice.product.type.json.model.JsonDeleteProductType;
+import com.lab.onlineshop.webservice.product.type.json.model.JsonProductsType;
+import com.lab.onlineshop.webservice.product.type.json.model.JsonUpdateProductType;
 import com.lab.onlineshop.webservice.util.ResponseStatus;
 import jakarta.ejb.EJB;
 import jakarta.json.bind.Jsonb;
