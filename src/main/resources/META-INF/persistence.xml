@@ -5,10 +5,11 @@
              version="3.0">
     <persistence-unit name="onlineShop" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+<!--        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>-->
+        <jta-data-source>java:/jdbc/onlineShop</jta-data-source>
         <properties>
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect"/>
             <property name="show_sql" value="true"/>
         </properties>
     </persistence-unit>
