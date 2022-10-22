@@ -2,8 +2,8 @@ package com.lab.onlineshop.webservice.login;
 
 import com.lab.onlineshop.api.util.Context;
 import com.lab.onlineshop.webservice.login.json.model.JsonLoginResponse;
-import com.lab.onlineshop.webservice.response.DataResponse;
-import com.lab.onlineshop.webservice.response.SimpleResponse;
+import com.lab.onlineshop.webservice.json.response.DataResponse;
+import com.lab.onlineshop.webservice.json.response.SimpleResponse;
 import com.lab.onlineshop.services.customer.CustomerService;
 import com.lab.onlineshop.services.user.UserService;
 import jakarta.ejb.EJB;

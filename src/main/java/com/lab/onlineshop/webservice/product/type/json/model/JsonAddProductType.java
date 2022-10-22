@@ -1,4 +1,6 @@
 package com.lab.onlineshop.webservice.product.type.json.model;
 
-public record JsonAddProductType(String description) {
+import com.lab.onlineshop.webservice.json.JsonAdd;
+
+public record JsonAddProductType(String description) implements JsonAdd {
 }

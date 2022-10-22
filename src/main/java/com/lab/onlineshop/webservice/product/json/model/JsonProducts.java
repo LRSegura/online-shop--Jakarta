@@ -1,6 +1,6 @@
 package com.lab.onlineshop.webservice.product.json.model;
 
-import com.lab.onlineshop.webservice.response.JsonDataResponse;
+import com.lab.onlineshop.webservice.json.response.JsonDataResponse;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

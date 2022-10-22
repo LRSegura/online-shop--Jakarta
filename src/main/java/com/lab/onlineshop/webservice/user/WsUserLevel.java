@@ -2,7 +2,7 @@ package com.lab.onlineshop.webservice.user;
 
 import com.lab.onlineshop.webservice.user.json.model.JsonUserLevel;
 import com.lab.onlineshop.model.user.UserLevel;
-import com.lab.onlineshop.webservice.response.DataResponse;
+import com.lab.onlineshop.webservice.json.response.DataResponse;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.GET;
